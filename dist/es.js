@@ -224,21 +224,15 @@ var Http = function () {
         request.open(method, url);
         request.onload = function () {
           try {
-            var response = JSON.parse(request.response);
+            var _response = JSON.parse(request.response);
 
             if (request.status.toString() === HTTP_STATUS.OK) {
-              resolve(response);
+              resolve(_response);
             } else {
-              reject(new Error({
-                body: response,
-                status: request.status
-              }));
+              reject(_response);
             }
           } catch (e) {
-            reject(new Error({
-              body: request.responseText,
-              status: request.status
-            }));
+            reject(response);
           }
         };
         request.setRequestHeader('Content-Type', 'application/json');
@@ -305,8 +299,6 @@ var Http = function () {
  */
 // request-promise error types
 var REQUEST_ERROR = 'RequestError';
-var STATUS_CODE_ERROR = 'StatusCodeError';
-
 function FacebookError(error) {
   this.name = 'FacebookError';
   this.message = error.message;
@@ -369,13 +361,13 @@ function constructErrorResponse(response) {
     message = body.error.message;
   } else {
     // Handle single response
-    if (response.name === STATUS_CODE_ERROR) {
+    if (typeof response.error.code === 'number') {
       // Handle when we can get response error code
       body = response.error ? response.error : response;
       body = typeof body === 'string' ? JSON.parse(body) : body;
       // Construct an error message from subfields in body.error
-      message = body.error.error_user_msg ? body.error.error_user_title + ': ' + body.error.error_user_msg : body.error.message;
-      status = response.statusCode;
+      message = body.error_user_msg ? body.error_user_title + ': ' + body.error_user_msg : body.message;
+      status = response.error ? response.error.code : response.code;
     } else if (response.name === REQUEST_ERROR) {
       // Handle network errors e.g. timeout, destination unreachable
       body = { error: response.error };
