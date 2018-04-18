@@ -54,20 +54,10 @@ export default class Http {
           if (request.status.toString() === HTTP_STATUS.OK) {
             resolve(response);
           } else {
-            reject(
-              new Error({
-                body: response,
-                status: request.status
-              })
-            );
+            reject(response);
           }
         } catch (e) {
-          reject(
-            new Error({
-              body: request.responseText,
-              status: request.status
-            })
-          );
+          reject(response);
         }
       };
       request.setRequestHeader('Content-Type', 'application/json');

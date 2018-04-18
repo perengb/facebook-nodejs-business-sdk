@@ -56,3 +56,6 @@ jspm_packages/
 
 # distribution packages
 dist/
+
+# system meta data
+.DS_Store
