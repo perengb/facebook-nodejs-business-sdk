@@ -65,17 +65,17 @@ function constructErrorResponse (response: Object) {
     message = body.error.message;
   } else {
     // Handle single response
-    if (response.name === STATUS_CODE_ERROR) {
+    if (typeof response.error.code === 'number') {
       // Handle when we can get response error code
       body = response.error ? response.error : response;
       body = typeof body === 'string'
         ? JSON.parse(body)
         : body;
       // Construct an error message from subfields in body.error
-      message = body.error.error_user_msg
-        ? `${body.error.error_user_title}: ${body.error.error_user_msg}`
-        : body.error.message;
-      status = response.statusCode;
+      message = body.error_user_msg
+        ? `${body.error_user_title}: ${body.error_user_msg}`
+        : body.message;
+      status = response.error ? response.error.code : response.code;
     } else if (response.name === REQUEST_ERROR) {
       // Handle network errors e.g. timeout, destination unreachable
       body = {error: response.error};
