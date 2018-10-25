@@ -54,7 +54,7 @@ export default class Http {
           if (request.status.toString() === HTTP_STATUS.OK) {
             resolve(response);
           } else {
-            reject(response)
+            reject(response);
           }
         } catch (e) {
           reject(response);

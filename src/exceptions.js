@@ -65,7 +65,7 @@ function constructErrorResponse (response: Object) {
     message = body.error.message;
   } else {
     // Handle single response
-    if (typeof response.error.code === 'number') {
+    if (response.error && typeof response.error.code === 'number') {
       // Handle when we can get response error code
       body = response.error ? response.error : response;
       body = typeof body === 'string'
