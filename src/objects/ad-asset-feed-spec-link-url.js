@@ -17,10 +17,19 @@ export default class AdAssetFeedSpecLinkURL extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
       adlabels: 'adlabels',
+      carousel_see_more_url: 'carousel_see_more_url',
       deeplink_url: 'deeplink_url',
       display_url: 'display_url',
       url_tags: 'url_tags',
-      website_url: 'website_url'
+      website_url: 'website_url',
+      id: 'id'
     });
+  }
+
+  get (fields, params): AdAssetFeedSpecLinkURL {
+    return this.read(
+      fields,
+      params
+    );
   }
 }

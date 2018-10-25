@@ -20,7 +20,8 @@ export default class AdCampaignDeliveryEstimate extends AbstractCrudObject {
       daily_outcomes_curve: 'daily_outcomes_curve',
       estimate_dau: 'estimate_dau',
       estimate_mau: 'estimate_mau',
-      estimate_ready: 'estimate_ready'
+      estimate_ready: 'estimate_ready',
+      id: 'id'
     });
   }
 
@@ -45,7 +46,17 @@ export default class AdCampaignDeliveryEstimate extends AbstractCrudObject {
       social_impressions: 'SOCIAL_IMPRESSIONS',
       video_views: 'VIDEO_VIEWS',
       app_downloads: 'APP_DOWNLOADS',
-      landing_page_views: 'LANDING_PAGE_VIEWS'
+      landing_page_views: 'LANDING_PAGE_VIEWS',
+      value: 'VALUE',
+      replies: 'REPLIES',
+      derived_events: 'DERIVED_EVENTS'
     });
+  }
+
+  get (fields, params): AdCampaignDeliveryEstimate {
+    return this.read(
+      fields,
+      params
+    );
   }
 }

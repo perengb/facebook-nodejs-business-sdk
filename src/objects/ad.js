@@ -9,7 +9,6 @@
 import {AbstractCrudObject} from './../abstract-crud-object';
 import AbstractObject from './../abstract-object';
 import AdCreative from './ad-creative';
-import AdLabel from './ad-label';
 import AdsInsights from './ads-insights';
 import AdReportRun from './ad-report-run';
 import AdKeywordStats from './ad-keyword-stats';
@@ -39,14 +38,23 @@ export default class Ad extends AbstractCrudObject {
       conversion_specs: 'conversion_specs',
       created_time: 'created_time',
       creative: 'creative',
+      demolink_hash: 'demolink_hash',
+      display_sequence: 'display_sequence',
       effective_status: 'effective_status',
+      engagement_audience: 'engagement_audience',
+      failed_delivery_checks: 'failed_delivery_checks',
       id: 'id',
+      issues_info: 'issues_info',
       last_updated_by_app_id: 'last_updated_by_app_id',
       name: 'name',
+      objective_source: 'objective_source',
+      priority: 'priority',
       recommendations: 'recommendations',
       source_ad: 'source_ad',
       source_ad_id: 'source_ad_id',
       status: 'status',
+      targeting: 'targeting',
+      tracking_and_conversion_with_defaults: 'tracking_and_conversion_with_defaults',
       tracking_specs: 'tracking_specs',
       updated_time: 'updated_time'
     });
@@ -93,38 +101,45 @@ export default class Ad extends AbstractCrudObject {
   }
   static get DatePreset (): Object {
     return Object.freeze({
-      today: 'TODAY',
-      yesterday: 'YESTERDAY',
-      this_month: 'THIS_MONTH',
-      last_month: 'LAST_MONTH',
-      this_quarter: 'THIS_QUARTER',
-      lifetime: 'LIFETIME',
-      last_3d: 'LAST_3D',
-      last_7d: 'LAST_7D',
-      last_14d: 'LAST_14D',
-      last_28d: 'LAST_28D',
-      last_30d: 'LAST_30D',
-      last_90d: 'LAST_90D',
-      last_week_mon_sun: 'LAST_WEEK_MON_SUN',
-      last_week_sun_sat: 'LAST_WEEK_SUN_SAT',
-      last_quarter: 'LAST_QUARTER',
-      last_year: 'LAST_YEAR',
-      this_week_mon_today: 'THIS_WEEK_MON_TODAY',
-      this_week_sun_today: 'THIS_WEEK_SUN_TODAY',
-      this_year: 'THIS_YEAR'
+      today: 'today',
+      yesterday: 'yesterday',
+      this_month: 'this_month',
+      last_month: 'last_month',
+      this_quarter: 'this_quarter',
+      lifetime: 'lifetime',
+      last_3d: 'last_3d',
+      last_7d: 'last_7d',
+      last_14d: 'last_14d',
+      last_28d: 'last_28d',
+      last_30d: 'last_30d',
+      last_90d: 'last_90d',
+      last_week_mon_sun: 'last_week_mon_sun',
+      last_week_sun_sat: 'last_week_sun_sat',
+      last_quarter: 'last_quarter',
+      last_year: 'last_year',
+      this_week_mon_today: 'this_week_mon_today',
+      this_week_sun_today: 'this_week_sun_today',
+      this_year: 'this_year'
     });
   }
   static get ExecutionOptions (): Object {
     return Object.freeze({
-      validate_only: 'VALIDATE_ONLY',
-      synchronous_ad_review: 'SYNCHRONOUS_AD_REVIEW',
-      include_recommendations: 'INCLUDE_RECOMMENDATIONS'
+      validate_only: 'validate_only',
+      synchronous_ad_review: 'synchronous_ad_review',
+      include_recommendations: 'include_recommendations'
     });
   }
   static get Operator (): Object {
     return Object.freeze({
       all: 'ALL',
       any: 'ANY'
+    });
+  }
+  static get StatusOption (): Object {
+    return Object.freeze({
+      active: 'ACTIVE',
+      paused: 'PAUSED',
+      inherited_from_source: 'INHERITED_FROM_SOURCE'
     });
   }
 
@@ -145,12 +160,31 @@ export default class Ad extends AbstractCrudObject {
     );
   }
 
-  createAdLabel (fields, params): AdLabel {
+  createAdLabel (fields, params): Ad {
     return this.createEdge(
       '/adlabels',
       fields,
       params,
-      AdLabel
+      Ad
+    );
+  }
+
+  getCopies (fields, params, fetchFirstPage = true): Ad {
+    return this.getEdge(
+      Ad,
+      fields,
+      params,
+      fetchFirstPage,
+      '/copies'
+    );
+  }
+
+  createCopy (fields, params): Ad {
+    return this.createEdge(
+      '/copies',
+      fields,
+      params,
+      Ad
     );
   }
 
@@ -193,6 +227,15 @@ export default class Ad extends AbstractCrudObject {
     );
   }
 
+  createLead (fields, params): Lead {
+    return this.createEdge(
+      '/leads',
+      fields,
+      params,
+      Lead
+    );
+  }
+
   getPreviews (fields, params, fetchFirstPage = true): AdPreview {
     return this.getEdge(
       AdPreview,
@@ -210,6 +253,22 @@ export default class Ad extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/targetingsentencelines'
+    );
+  }
+
+  deleteTrackingTag (params): AbstractObject {
+    return super.deleteEdge(
+      '/trackingtag',
+      params
+    );
+  }
+
+  createTrackingTag (fields, params): AbstractObject {
+    return this.createEdge(
+      '/trackingtag',
+      fields,
+      params
+
     );
   }
 

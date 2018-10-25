@@ -72,8 +72,10 @@ export default class Targeting extends AbstractCrudObject {
       income: 'income',
       industries: 'industries',
       instagram_positions: 'instagram_positions',
+      instream_video_sponsorship_placements: 'instream_video_sponsorship_placements',
       interested_in: 'interested_in',
       interests: 'interests',
+      is_whatsapp_destination_ad: 'is_whatsapp_destination_ad',
       keywords: 'keywords',
       life_events: 'life_events',
       locales: 'locales',
@@ -85,6 +87,7 @@ export default class Targeting extends AbstractCrudObject {
       political_views: 'political_views',
       politics: 'politics',
       product_audience_specs: 'product_audience_specs',
+      prospecting_audience: 'prospecting_audience',
       publisher_platforms: 'publisher_platforms',
       publisher_visibility_categories: 'publisher_visibility_categories',
       radius: 'radius',
@@ -100,22 +103,30 @@ export default class Targeting extends AbstractCrudObject {
       wireless_carrier: 'wireless_carrier',
       work_employers: 'work_employers',
       work_positions: 'work_positions',
-      zips: 'zips'
+      zips: 'zips',
+      id: 'id'
     });
   }
 
   static get DevicePlatforms (): Object {
     return Object.freeze({
-      mobile: 'MOBILE',
-      desktop: 'DESKTOP',
-      connected_tv: 'CONNECTED_TV'
+      mobile: 'mobile',
+      desktop: 'desktop',
+      connected_tv: 'connected_tv'
     });
   }
   static get EffectiveDevicePlatforms (): Object {
     return Object.freeze({
-      mobile: 'MOBILE',
-      desktop: 'DESKTOP',
-      connected_tv: 'CONNECTED_TV'
+      mobile: 'mobile',
+      desktop: 'desktop',
+      connected_tv: 'connected_tv'
     });
+  }
+
+  get (fields, params): Targeting {
+    return this.read(
+      fields,
+      params
+    );
   }
 }

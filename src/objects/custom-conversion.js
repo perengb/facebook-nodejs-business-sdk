@@ -8,6 +8,8 @@
  */
 import {AbstractCrudObject} from './../abstract-crud-object';
 import AbstractObject from './../abstract-object';
+import CustomConversionActivities from './custom-conversion-activities';
+import AdAccount from './ad-account';
 import CustomConversionStatsResult from './custom-conversion-stats-result';
 
 /**
@@ -20,6 +22,7 @@ export default class CustomConversion extends AbstractCrudObject {
     return Object.freeze({
       account_id: 'account_id',
       aggregation_rule: 'aggregation_rule',
+      business: 'business',
       creation_time: 'creation_time',
       custom_event_type: 'custom_event_type',
       data_sources: 'data_sources',
@@ -49,13 +52,21 @@ export default class CustomConversion extends AbstractCrudObject {
       lead: 'LEAD',
       purchase: 'PURCHASE',
       search: 'SEARCH',
+      contact: 'CONTACT',
+      customize_product: 'CUSTOMIZE_PRODUCT',
+      donate: 'DONATE',
+      find_location: 'FIND_LOCATION',
+      schedule: 'SCHEDULE',
+      start_trial: 'START_TRIAL',
+      submit_application: 'SUBMIT_APPLICATION',
+      subscribe: 'SUBSCRIBE',
       other: 'OTHER'
     });
   }
 
-  getActivities (fields, params, fetchFirstPage = true): AbstractObject {
+  getActivities (fields, params, fetchFirstPage = true): CustomConversionActivities {
     return this.getEdge(
-      AbstractObject,
+      CustomConversionActivities,
       fields,
       params,
       fetchFirstPage,
@@ -63,16 +74,26 @@ export default class CustomConversion extends AbstractCrudObject {
     );
   }
 
-  deleteSharedAgencies (params): AbstractObject {
+  deleteAdAccounts (params): AbstractObject {
     return super.deleteEdge(
-      '/shared_agencies',
+      '/adaccounts',
       params
     );
   }
 
-  createSharedAgency (fields, params): CustomConversion {
+  getAdAccounts (fields, params, fetchFirstPage = true): AdAccount {
+    return this.getEdge(
+      AdAccount,
+      fields,
+      params,
+      fetchFirstPage,
+      '/adaccounts'
+    );
+  }
+
+  createAdAccount (fields, params): CustomConversion {
     return this.createEdge(
-      '/shared_agencies',
+      '/adaccounts',
       fields,
       params,
       CustomConversion

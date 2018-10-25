@@ -18,20 +18,36 @@ export default class AdsPixelStatsResult extends AbstractCrudObject {
     return Object.freeze({
       aggregation: 'aggregation',
       data: 'data',
-      timestamp: 'timestamp'
+      start_time: 'start_time',
+      id: 'id'
     });
   }
 
   static get Aggregation (): Object {
     return Object.freeze({
-      browser_type: 'BROWSER_TYPE',
-      custom_data_field: 'CUSTOM_DATA_FIELD',
-      device_os: 'DEVICE_OS',
-      device_type: 'DEVICE_TYPE',
-      event: 'EVENT',
-      host: 'HOST',
-      pixel_fire: 'PIXEL_FIRE',
-      url: 'URL'
+      browser_type: 'browser_type',
+      custom_data_field: 'custom_data_field',
+      device_os: 'device_os',
+      device_type: 'device_type',
+      event: 'event',
+      host: 'host',
+      people_reached: 'people_reached',
+      pii_keys: 'pii_keys',
+      pii_lift: 'pii_lift',
+      pixel_fire: 'pixel_fire',
+      event_detection_method: 'event_detection_method',
+      url: 'url',
+      event_value_count: 'event_value_count',
+      url_by_rule: 'url_by_rule',
+      event_total_counts: 'event_total_counts',
+      event_source: 'event_source'
     });
+  }
+
+  get (fields, params): AdsPixelStatsResult {
+    return this.read(
+      fields,
+      params
+    );
   }
 }

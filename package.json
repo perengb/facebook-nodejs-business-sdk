@@ -1,14 +1,14 @@
 {
-  "name": "facebook-nodejs-ads-sdk",
-  "version": "2.11.4",
+  "name": "facebook-nodejs-business-sdk",
+  "version": "3.2.0",
   "description": "SDK for the Facebook Ads API in Javascript and Node.js",
   "author": "Facebook",
   "maintainers": [
-    "Zain Aziz <zaziz@fb.com>, Neil Chen <xiaotchen@fb.com>, Cloud Xu <cloudxu@fb.com>, Supasate Choochaisri <supasate@fb.com>, lucascosta <lucas@lucascosta.com>"
+    "Ellen Tao <ellentao@fb.com>, Yonghong Shi <yongshi@fb.com>, Moyang He <hemoyang@fb.com>, Zain Aziz <zaziz@fb.com>, Neil Chen <xiaotchen@fb.com>, Supasate Choochaisri <supasate@fb.com>, lucascosta <lucas@lucascosta.com>"
   ],
-  "homepage": "https://github.com/facebook/facebook-nodejs-ads-sdk",
+  "homepage": "https://github.com/facebook/facebook-nodejs-business-sdk",
   "bugs": {
-    "url": "https://github.com/facebook/facebook-nodejs-ads-sdk/issues"
+    "url": "https://github.com/facebook/facebook-nodejs-business-sdk/issues"
   },
   "keywords": [
     "facebook",
@@ -27,7 +27,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/facebook/facebook-nodejs-ads-sdk.git"
+    "url": "git://github.com/facebook/facebook-nodejs-business-sdk.git"
+  },
+  "dependencies": {
+    "mixwith": "~0.1.1",
+    "request": "^2.81.0",
+    "request-promise": "~4.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -52,18 +57,13 @@
     "rollup-plugin-node-resolve": "~2.0.0",
     "rollup-stream": "~1.14.0",
     "vinyl-buffer": "~1.0.0",
-    "vinyl-source-stream": "~1.1.0"
-  },
-  "dependencies": {
+    "vinyl-source-stream": "~1.1.0",
     "babel-eslint": "^7.2.3",
     "babel-plugin-async-to-promises": "^1.0.5",
     "eslint-plugin-flowtype": "^2.34.0",
     "gulp-cli": "^1.3.0",
     "gulp-flowtype": "^1.0.0",
     "jshint-sourcemap-reporter": "0.0.1",
-    "mixwith": "~0.1.1",
-    "request": "^2.81.0",
-    "request-promise": "~4.1.1",
     "semistandard": "^11.0.0"
   },
   "scripts": {
@@ -87,7 +87,8 @@
     ],
     "ignore": [
       "gulpfile.js",
-      "/dist/"
+      "/dist/",
+      "/examples/"
     ],
     "plugins": [
       "flowtype"

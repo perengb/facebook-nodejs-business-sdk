@@ -21,17 +21,31 @@ export default class Hotel extends AbstractCrudObject {
       address: 'address',
       applinks: 'applinks',
       brand: 'brand',
+      currency: 'currency',
       description: 'description',
       guest_ratings: 'guest_ratings',
       hotel_id: 'hotel_id',
       id: 'id',
       images: 'images',
       lowest_base_price: 'lowest_base_price',
+      loyalty_program: 'loyalty_program',
+      margin_level: 'margin_level',
       name: 'name',
       phone: 'phone',
+      sanitized_images: 'sanitized_images',
       star_rating: 'star_rating',
       url: 'url'
     });
+  }
+
+  getHotelRooms (fields, params, fetchFirstPage = true): HotelRoom {
+    return this.getEdge(
+      HotelRoom,
+      fields,
+      params,
+      fetchFirstPage,
+      '/hotel_rooms'
+    );
   }
 
   createHotelRoom (fields, params): HotelRoom {
