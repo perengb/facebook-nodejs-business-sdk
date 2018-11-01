@@ -62,7 +62,7 @@ export default class Http {
       };
       request.onerror = function () {
         reject({
-          body: { error: { message: 'An unknown error occurred during the request.' } },
+          name: 'PreflightError',
           status: request.status
         });
       }

@@ -8,6 +8,7 @@
 // request-promise error types
 const REQUEST_ERROR = 'RequestError';
 const STATUS_CODE_ERROR = 'StatusCodeError';
+const PREFLIGHT_ERROR = 'PreflightError';
 
 function FacebookError (error) {
   this.name = 'FacebookError';
@@ -83,6 +84,12 @@ function constructErrorResponse (response: Object) {
       message = response.message;
       // Network errors have no status code
       status = null;
+    } else if (response.name === PREFLIGHT_ERROR){
+      body = { error: 'Preflight error occured, most likely due to expired token.' };
+      // An error message is in the response already
+      message = 'Preflight error occured, most likely due to expired token.';
+      // Network errors have no status code
+      status = response.status ? response.status : 0;
     }
   }
 

@@ -243,7 +243,7 @@ var Http = function () {
         };
         request.onerror = function () {
           reject({
-            body: { error: { message: 'An unknown error occurred during the request.' } },
+            name: 'PreflightError',
             status: request.status
           });
         };
@@ -311,6 +311,8 @@ var Http = function () {
  */
 // request-promise error types
 var REQUEST_ERROR = 'RequestError';
+var PREFLIGHT_ERROR = 'PreflightError';
+
 function FacebookError(error) {
   this.name = 'FacebookError';
   this.message = error.message;
@@ -387,6 +389,12 @@ function constructErrorResponse(response) {
       message = response.message;
       // Network errors have no status code
       status = null;
+    } else if (response.name === PREFLIGHT_ERROR) {
+      body = { error: 'Preflight error occured, most likely due to expired token.' };
+      // An error message is in the response already
+      message = 'Preflight error occured, most likely due to expired token.';
+      // Network errors have no status code
+      status = response.status ? response.status : 0;
     }
   }
 
