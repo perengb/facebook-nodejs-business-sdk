@@ -16,7 +16,9 @@ import HomeListing from './home-listing';
 import Hotel from './hotel';
 import ProductItem from './product-item';
 import ProductFeedRule from './product-feed-rule';
+import ProductFeedSchedule from './product-feed-schedule';
 import ProductFeedUpload from './product-feed-upload';
+import VehicleOffer from './vehicle-offer';
 import Vehicle from './vehicle';
 
 /**
@@ -94,6 +96,8 @@ export default class ProductFeed extends AbstractCrudObject {
       catalog_segment_customize_default: 'CATALOG_SEGMENT_CUSTOMIZE_DEFAULT',
       country: 'COUNTRY',
       language: 'LANGUAGE',
+      language_and_country: 'LANGUAGE_AND_COUNTRY',
+      local: 'LOCAL',
     });
   }
 
@@ -176,6 +180,25 @@ export default class ProductFeed extends AbstractCrudObject {
     );
   }
 
+  getUploadSchedules (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      ProductFeedSchedule,
+      fields,
+      params,
+      fetchFirstPage,
+      '/upload_schedules'
+    );
+  }
+
+  createUploadSchedule (fields: Array<string>, params: Object = {}): Promise<ProductFeed> {
+    return this.createEdge(
+      '/upload_schedules',
+      fields,
+      params,
+      ProductFeed
+    );
+  }
+
   getUploads (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       ProductFeedUpload,
@@ -192,6 +215,16 @@ export default class ProductFeed extends AbstractCrudObject {
       fields,
       params,
       ProductFeedUpload
+    );
+  }
+
+  getVehicleOffers (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      VehicleOffer,
+      fields,
+      params,
+      fetchFirstPage,
+      '/vehicle_offers'
     );
   }
 

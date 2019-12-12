@@ -13,6 +13,7 @@ import AdStudy from './ad-study';
 import AdRule from './ad-rule';
 import Ad from './ad';
 import AdSet from './ad-set';
+import ContentDeliveryReport from './content-delivery-report';
 import AdsInsights from './ads-insights';
 import AdReportRun from './ad-report-run';
 
@@ -49,6 +50,7 @@ export default class Campaign extends AbstractCrudObject {
       recommendations: 'recommendations',
       source_campaign: 'source_campaign',
       source_campaign_id: 'source_campaign_id',
+      special_ad_category: 'special_ad_category',
       spend_cap: 'spend_cap',
       start_time: 'start_time',
       status: 'status',
@@ -138,6 +140,14 @@ export default class Campaign extends AbstractCrudObject {
       video_views: 'VIDEO_VIEWS',
     });
   }
+  static get SpecialAdCategory (): Object {
+    return Object.freeze({
+      credit: 'CREDIT',
+      employment: 'EMPLOYMENT',
+      housing: 'HOUSING',
+      none: 'NONE',
+    });
+  }
   static get Operator (): Object {
     return Object.freeze({
       all: 'ALL',
@@ -205,6 +215,16 @@ export default class Campaign extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/adsets'
+    );
+  }
+
+  getContentDeliveryReport (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      ContentDeliveryReport,
+      fields,
+      params,
+      fetchFirstPage,
+      '/content_delivery_report'
     );
   }
 

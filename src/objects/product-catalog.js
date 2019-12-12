@@ -30,6 +30,7 @@ import ProductGroup from './product-group';
 import ProductSet from './product-set';
 import ProductCatalogProductSetsBatch from './product-catalog-product-sets-batch';
 import ProductItem from './product-item';
+import VehicleOffer from './vehicle-offer';
 import Vehicle from './vehicle';
 
 /**
@@ -49,6 +50,7 @@ export default class ProductCatalog extends AbstractCrudObject {
       id: 'id',
       name: 'name',
       product_count: 'product_count',
+      store_catalog_settings: 'store_catalog_settings',
       vertical: 'vertical',
     });
   }
@@ -61,6 +63,7 @@ export default class ProductCatalog extends AbstractCrudObject {
       flights: 'flights',
       home_listings: 'home_listings',
       hotels: 'hotels',
+      offline_commerce: 'offline_commerce',
       ticketed_experiences: 'ticketed_experiences',
       transactable_items: 'transactable_items',
       vehicles: 'vehicles',
@@ -451,6 +454,25 @@ export default class ProductCatalog extends AbstractCrudObject {
       fields,
       params,
       ProductItem
+    );
+  }
+
+  createStoreProductItemsBatch (fields: Array<string>, params: Object = {}): Promise<ProductCatalog> {
+    return this.createEdge(
+      '/store_product_items_batch',
+      fields,
+      params,
+      ProductCatalog
+    );
+  }
+
+  getVehicleOffers (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      VehicleOffer,
+      fields,
+      params,
+      fetchFirstPage,
+      '/vehicle_offers'
     );
   }
 

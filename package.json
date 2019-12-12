@@ -1,6 +1,6 @@
 {
   "name": "facebook-nodejs-business-sdk",
-  "version": "4.0.1",
+  "version": "5.0.3",
   "description": "SDK for the Facebook Ads API in Javascript and Node.js",
   "author": "Facebook",
   "maintainers": [
@@ -30,6 +30,7 @@
     "url": "git://github.com/facebook/facebook-nodejs-business-sdk.git"
   },
   "dependencies": {
+    "js-sha256": "^0.9.0",
     "mixwith": "~0.1.1",
     "request": "^2.88.0",
     "request-promise": "~4.1.1"
@@ -46,7 +47,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "babelrc-rollup": "^3.0.0",
     "chai": "~3.5.0",
-    "eslint": "^3.19.0",
+    "eslint": "^4.18.2",
     "eslint-plugin-flowtype": "^2.50.3",
     "flow-bin": "^0.101.0",
     "gulp": "^4.0.2",

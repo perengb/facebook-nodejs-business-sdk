@@ -15,6 +15,7 @@ import AdAccount from './ad-account';
 import Album from './album';
 import AppRequestFormerRecipient from './app-request-former-recipient';
 import AppRequest from './app-request';
+import BusinessAssetGroup from './business-asset-group';
 import ProductCatalog from './product-catalog';
 import BusinessUser from './business-user';
 import Business from './business';
@@ -70,9 +71,9 @@ export default class User extends AbstractCrudObject {
       installed: 'installed',
       interested_in: 'interested_in',
       is_famedeeplinkinguser: 'is_famedeeplinkinguser',
+      is_guest_user: 'is_guest_user',
       is_shared_login: 'is_shared_login',
       is_verified: 'is_verified',
-      labels: 'labels',
       languages: 'languages',
       last_name: 'last_name',
       link: 'link',
@@ -168,6 +169,7 @@ export default class User extends AbstractCrudObject {
       msn: 'MSN',
       myspace: 'MYSPACE',
       nateon: 'NATEON',
+      oculus: 'OCULUS',
       ok: 'OK',
       orkut: 'ORKUT',
       others: 'OTHERS',
@@ -246,6 +248,15 @@ export default class User extends AbstractCrudObject {
     );
   }
 
+  createAdStudy (fields: Array<string>, params: Object = {}): Promise<AdStudy> {
+    return this.createEdge(
+      '/ad_studies',
+      fields,
+      params,
+      AdStudy
+    );
+  }
+
   getAdAccounts (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       AdAccount,
@@ -302,6 +313,16 @@ export default class User extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/assigned_ad_accounts'
+    );
+  }
+
+  getAssignedBusinessAssetGroups (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      BusinessAssetGroup,
+      fields,
+      params,
+      fetchFirstPage,
+      '/assigned_business_asset_groups'
     );
   }
 
@@ -362,6 +383,15 @@ export default class User extends AbstractCrudObject {
     );
   }
 
+  createBusiness (fields: Array<string>, params: Object = {}): Promise<Business> {
+    return this.createEdge(
+      '/businesses',
+      fields,
+      params,
+      Business
+    );
+  }
+
   getConversations (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       UnifiedThread,
@@ -409,16 +439,6 @@ export default class User extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/family'
-    );
-  }
-
-  getFavoriteRequests (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      AbstractObject,
-      fields,
-      params,
-      fetchFirstPage,
-      '/favorite_requests'
     );
   }
 
@@ -695,15 +715,6 @@ export default class User extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/picture'
-    );
-  }
-
-  createPlace (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
-    return this.createEdge(
-      '/places',
-      fields,
-      params,
-      
     );
   }
 

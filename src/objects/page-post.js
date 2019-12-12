@@ -13,7 +13,6 @@ import Comment from './comment';
 import RTBDynamicPost from './rtb-dynamic-post';
 import InsightsResult from './insights-result';
 import Profile from './profile';
-import User from './user';
 import Post from './post';
 import Page from './page';
 
@@ -139,6 +138,7 @@ export default class PagePost extends AbstractCrudObject {
       draft: 'DRAFT',
       inline_created: 'INLINE_CREATED',
       published: 'PUBLISHED',
+      reviewable_branded_content: 'REVIEWABLE_BRANDED_CONTENT',
       scheduled: 'SCHEDULED',
       scheduled_recurring: 'SCHEDULED_RECURRING',
     });
@@ -247,15 +247,6 @@ export default class PagePost extends AbstractCrudObject {
     );
   }
 
-  createPrivateReply (fields: Array<string>, params: Object = {}): Promise<PagePost> {
-    return this.createEdge(
-      '/private_replies',
-      fields,
-      params,
-      PagePost
-    );
-  }
-
   getReactions (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       Profile,
@@ -263,16 +254,6 @@ export default class PagePost extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/reactions'
-    );
-  }
-
-  getSeen (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      User,
-      fields,
-      params,
-      fetchFirstPage,
-      '/seen'
     );
   }
 

@@ -14,7 +14,6 @@ import Business from './business';
 import Album from './album';
 import AssignedUser from './assigned-user';
 import Profile from './profile';
-import BusinessProject from './business-project';
 import PageCallToAction from './page-call-to-action';
 import CanvasBodyElement from './canvas-body-element';
 import Canvas from './canvas';
@@ -44,7 +43,6 @@ import ProductCatalog from './product-catalog';
 import Recommendation from './recommendation';
 import User from './user';
 import RTBDynamicPost from './rtb-dynamic-post';
-import ScreenName from './screen-name';
 import Application from './application';
 import PageSettings from './page-settings';
 import VideoList from './video-list';
@@ -52,6 +50,7 @@ import Tab from './tab';
 import PageThreadOwner from './page-thread-owner';
 import EventTour from './event-tour';
 import PageUpcomingChange from './page-upcoming-change';
+import VideoCopyrightRule from './video-copyright-rule';
 import VideoCopyright from './video-copyright';
 
 /**
@@ -133,8 +132,6 @@ export default class Page extends AbstractCrudObject {
       is_webhooks_subscribed: 'is_webhooks_subscribed',
       keywords: 'keywords',
       leadgen_form_preview_details: 'leadgen_form_preview_details',
-      leadgen_has_crm_integration: 'leadgen_has_crm_integration',
-      leadgen_has_fat_ping_crm_integration: 'leadgen_has_fat_ping_crm_integration',
       leadgen_tos_acceptance_time: 'leadgen_tos_acceptance_time',
       leadgen_tos_accepted: 'leadgen_tos_accepted',
       leadgen_tos_accepting_user: 'leadgen_tos_accepting_user',
@@ -287,6 +284,8 @@ export default class Page extends AbstractCrudObject {
       pages_messaging: 'PAGES_MESSAGING',
       pages_messaging_subscriptions: 'PAGES_MESSAGING_SUBSCRIPTIONS',
       platform_manage_pages: 'PLATFORM_MANAGE_PAGES',
+      platform_pages_manage_instant_articles: 'PLATFORM_PAGES_MANAGE_INSTANT_ARTICLES',
+      platform_read_insights: 'PLATFORM_READ_INSIGHTS',
       read_page_mailboxes: 'READ_PAGE_MAILBOXES',
       view_monetization_insights: 'VIEW_MONETIZATION_INSIGHTS',
     });
@@ -304,6 +303,8 @@ export default class Page extends AbstractCrudObject {
       pages_messaging: 'PAGES_MESSAGING',
       pages_messaging_subscriptions: 'PAGES_MESSAGING_SUBSCRIPTIONS',
       platform_manage_pages: 'PLATFORM_MANAGE_PAGES',
+      platform_pages_manage_instant_articles: 'PLATFORM_PAGES_MANAGE_INSTANT_ARTICLES',
+      platform_read_insights: 'PLATFORM_READ_INSIGHTS',
       read_page_mailboxes: 'READ_PAGE_MAILBOXES',
       view_monetization_insights: 'VIEW_MONETIZATION_INSIGHTS',
     });
@@ -392,15 +393,19 @@ export default class Page extends AbstractCrudObject {
       general_manager: 'general_manager',
       hometown: 'hometown',
       hours: 'hours',
+      invoice_access_invoice_change: 'invoice_access_invoice_change',
       leadgen: 'leadgen',
       leadgen_fat: 'leadgen_fat',
       live_videos: 'live_videos',
       location: 'location',
+      mcom_invoice_change: 'mcom_invoice_change',
       members: 'members',
       mention: 'mention',
       merchant_review: 'merchant_review',
       message_deliveries: 'message_deliveries',
       message_echoes: 'message_echoes',
+      message_mention: 'message_mention',
+      message_reactions: 'message_reactions',
       message_reads: 'message_reads',
       messages: 'messages',
       messaging_account_linking: 'messaging_account_linking',
@@ -576,16 +581,6 @@ export default class Page extends AbstractCrudObject {
     );
   }
 
-  getBusinessProjects (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      BusinessProject,
-      fields,
-      params,
-      fetchFirstPage,
-      '/businessprojects'
-    );
-  }
-
   getCallToActions (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       PageCallToAction,
@@ -688,22 +683,6 @@ export default class Page extends AbstractCrudObject {
     );
   }
 
-  deleteCopyrightWhitelistedIgPartners (params: Object = {}): Promise<*> {
-    return super.deleteEdge(
-      '/copyright_whitelisted_ig_partners',
-      params
-    );
-  }
-
-  createCopyrightWhitelistedIgPartner (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
-    return this.createEdge(
-      '/copyright_whitelisted_ig_partners',
-      fields,
-      params,
-      
-    );
-  }
-
   getCopyrightWhitelistedPartners (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       Profile,
@@ -740,6 +719,22 @@ export default class Page extends AbstractCrudObject {
       fields,
       params,
       PageUserMessageThreadLabel
+    );
+  }
+
+  deleteCustomUserSettings (params: Object = {}): Promise<*> {
+    return super.deleteEdge(
+      '/custom_user_settings',
+      params
+    );
+  }
+
+  createCustomUserSetting (fields: Array<string>, params: Object = {}): Promise<Page> {
+    return this.createEdge(
+      '/custom_user_settings',
+      fields,
+      params,
+      Page
     );
   }
 
@@ -963,6 +958,16 @@ export default class Page extends AbstractCrudObject {
     );
   }
 
+  getMediaFingerprints (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      MediaFingerprint,
+      fields,
+      params,
+      fetchFirstPage,
+      '/media_fingerprints'
+    );
+  }
+
   createMediaFingerprint (fields: Array<string>, params: Object = {}): Promise<MediaFingerprint> {
     return this.createEdge(
       '/media_fingerprints',
@@ -978,15 +983,6 @@ export default class Page extends AbstractCrudObject {
       fields,
       params,
       
-    );
-  }
-
-  createMessageCreative (fields: Array<string>, params: Object = {}): Promise<Page> {
-    return this.createEdge(
-      '/message_creatives',
-      fields,
-      params,
-      Page
     );
   }
 
@@ -1107,6 +1103,15 @@ export default class Page extends AbstractCrudObject {
       fields,
       params,
       InstagramUser
+    );
+  }
+
+  createPageWhatsappNumberVerification (fields: Array<string>, params: Object = {}): Promise<Page> {
+    return this.createEdge(
+      '/page_whatsapp_number_verification',
+      fields,
+      params,
+      Page
     );
   }
 
@@ -1274,16 +1279,6 @@ export default class Page extends AbstractCrudObject {
     );
   }
 
-  getScreenNames (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      ScreenName,
-      fields,
-      params,
-      fetchFirstPage,
-      '/screennames'
-    );
-  }
-
   getSecondaryReceivers (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       Application,
@@ -1363,6 +1358,15 @@ export default class Page extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/tabs'
+    );
+  }
+
+  createTab (fields: Array<string>, params: Object = {}): Promise<Page> {
+    return this.createEdge(
+      '/tabs',
+      fields,
+      params,
+      Page
     );
   }
 
@@ -1447,6 +1451,16 @@ export default class Page extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/upcoming_changes'
+    );
+  }
+
+  getVideoCopyrightRules (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      VideoCopyrightRule,
+      fields,
+      params,
+      fetchFirstPage,
+      '/video_copyright_rules'
     );
   }
 

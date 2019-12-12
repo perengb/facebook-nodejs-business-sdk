@@ -15,6 +15,7 @@ import AdCreative from './ad-creative';
 import AdRule from './ad-rule';
 import Ad from './ad';
 import AdAsyncRequest from './ad-async-request';
+import ContentDeliveryReport from './content-delivery-report';
 import AdCampaignDeliveryEstimate from './ad-campaign-delivery-estimate';
 import AdsInsights from './ads-insights';
 import AdReportRun from './ad-report-run';
@@ -115,6 +116,7 @@ export default class AdSet extends AbstractCrudObject {
     return Object.freeze({
       active: 'ACTIVE',
       archived: 'ARCHIVED',
+      campaign_paused: 'CAMPAIGN_PAUSED',
       deleted: 'DELETED',
       in_process: 'IN_PROCESS',
       paused: 'PAUSED',
@@ -158,6 +160,29 @@ export default class AdSet extends AbstractCrudObject {
       paused: 'PAUSED',
     });
   }
+  static get DatePreset (): Object {
+    return Object.freeze({
+      last_14d: 'last_14d',
+      last_28d: 'last_28d',
+      last_30d: 'last_30d',
+      last_3d: 'last_3d',
+      last_7d: 'last_7d',
+      last_90d: 'last_90d',
+      last_month: 'last_month',
+      last_quarter: 'last_quarter',
+      last_week_mon_sun: 'last_week_mon_sun',
+      last_week_sun_sat: 'last_week_sun_sat',
+      last_year: 'last_year',
+      lifetime: 'lifetime',
+      this_month: 'this_month',
+      this_quarter: 'this_quarter',
+      this_week_mon_today: 'this_week_mon_today',
+      this_week_sun_today: 'this_week_sun_today',
+      this_year: 'this_year',
+      today: 'today',
+      yesterday: 'yesterday',
+    });
+  }
   static get DestinationType (): Object {
     return Object.freeze({
       app: 'APP',
@@ -195,27 +220,12 @@ export default class AdSet extends AbstractCrudObject {
       video_sound_on: 'VIDEO_SOUND_ON',
     });
   }
-  static get DatePreset (): Object {
+  static get TuneForCategory (): Object {
     return Object.freeze({
-      last_14d: 'LAST_14D',
-      last_28d: 'LAST_28D',
-      last_30d: 'LAST_30D',
-      last_3d: 'LAST_3D',
-      last_7d: 'LAST_7D',
-      last_90d: 'LAST_90D',
-      last_month: 'LAST_MONTH',
-      last_quarter: 'LAST_QUARTER',
-      last_week_mon_sun: 'LAST_WEEK_MON_SUN',
-      last_week_sun_sat: 'LAST_WEEK_SUN_SAT',
-      last_year: 'LAST_YEAR',
-      lifetime: 'LIFETIME',
-      this_month: 'THIS_MONTH',
-      this_quarter: 'THIS_QUARTER',
-      this_week_mon_today: 'THIS_WEEK_MON_TODAY',
-      this_week_sun_today: 'THIS_WEEK_SUN_TODAY',
-      this_year: 'THIS_YEAR',
-      today: 'TODAY',
-      yesterday: 'YESTERDAY',
+      credit: 'CREDIT',
+      employment: 'EMPLOYMENT',
+      housing: 'HOUSING',
+      none: 'NONE',
     });
   }
   static get Operator (): Object {
@@ -262,6 +272,22 @@ export default class AdSet extends AbstractCrudObject {
     );
   }
 
+  deleteAdLabels (params: Object = {}): Promise<*> {
+    return super.deleteEdge(
+      '/adlabels',
+      params
+    );
+  }
+
+  createAdLabel (fields: Array<string>, params: Object = {}): Promise<AdSet> {
+    return this.createEdge(
+      '/adlabels',
+      fields,
+      params,
+      AdSet
+    );
+  }
+
   getAdRulesGoverned (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       AdRule,
@@ -289,6 +315,16 @@ export default class AdSet extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/asyncadrequests'
+    );
+  }
+
+  getContentDeliveryReport (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      ContentDeliveryReport,
+      fields,
+      params,
+      fetchFirstPage,
+      '/content_delivery_report'
     );
   }
 
@@ -337,22 +373,6 @@ export default class AdSet extends AbstractCrudObject {
       fields,
       params,
       AdReportRun
-    );
-  }
-
-  deleteLabels (params: Object = {}): Promise<*> {
-    return super.deleteEdge(
-      '/labels',
-      params
-    );
-  }
-
-  createLabel (fields: Array<string>, params: Object = {}): Promise<AdSet> {
-    return this.createEdge(
-      '/labels',
-      fields,
-      params,
-      AdSet
     );
   }
 

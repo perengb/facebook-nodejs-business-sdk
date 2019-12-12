@@ -11,9 +11,7 @@ import AbstractObject from './../abstract-object';
 import Cursor from './../cursor';
 import AdActivity from './ad-activity';
 import AdPlacePageSet from './ad-place-page-set';
-import AdSet from './ad-set';
 import AdStudy from './ad-study';
-import AdContract from './ad-contract';
 import AdCreative from './ad-creative';
 import AdImage from './ad-image';
 import AdLabel from './ad-label';
@@ -21,9 +19,9 @@ import PlayableContent from './playable-content';
 import AdAccountAdRulesHistory from './ad-account-ad-rules-history';
 import AdRule from './ad-rule';
 import Ad from './ad';
+import AdAccountAdVolume from './ad-account-ad-volume';
+import AdSet from './ad-set';
 import AdsPixel from './ads-pixel';
-import AdToplineDetail from './ad-topline-detail';
-import AdTopline from './ad-topline';
 import Application from './application';
 import AdVideo from './ad-video';
 import Business from './business';
@@ -33,7 +31,7 @@ import AsyncRequest from './async-request';
 import AdAsyncRequestSet from './ad-async-request-set';
 import BrandAudience from './brand-audience';
 import BroadTargetingCategories from './broad-targeting-categories';
-import BusinessProject from './business-project';
+import ContentDeliveryReport from './content-delivery-report';
 import CustomAudience from './custom-audience';
 import CustomAudiencesTOS from './custom-audiences-tos';
 import CustomConversion from './custom-conversion';
@@ -42,7 +40,6 @@ import AdPreview from './ad-preview';
 import AdsInsights from './ads-insights';
 import AdReportRun from './ad-report-run';
 import InstagramUser from './instagram-user';
-import LeadgenForm from './leadgen-form';
 import AdAccountMatchedSearchApplicationsEdgeData from './ad-account-matched-search-applications-edge-data';
 import AdAccountMaxBid from './ad-account-max-bid';
 import MinimumBudget from './minimum-budget';
@@ -54,6 +51,7 @@ import AdAccountReachEstimate from './ad-account-reach-estimate';
 import ReachFrequencyPrediction from './reach-frequency-prediction';
 import AdAccountRoas from './ad-account-roas';
 import SavedAudience from './saved-audience';
+import AdAccountSubscribedApps from './ad-account-subscribed-apps';
 import AdAccountTargetingUnified from './ad-account-targeting-unified';
 import TargetingSentenceLine from './targeting-sentence-line';
 import AdAccountTrackingData from './ad-account-tracking-data';
@@ -126,7 +124,7 @@ export default class AdAccount extends AbstractCrudObject {
       timezone_name: 'timezone_name',
       timezone_offset_hours_utc: 'timezone_offset_hours_utc',
       tos_accepted: 'tos_accepted',
-      user_role: 'user_role',
+      user_tasks: 'user_tasks',
       user_tos_accepted: 'user_tos_accepted',
     });
   }
@@ -229,6 +227,7 @@ export default class AdAccount extends AbstractCrudObject {
       home_listing: 'HOME_LISTING',
       hotel: 'HOTEL',
       media_title: 'MEDIA_TITLE',
+      offline_product: 'OFFLINE_PRODUCT',
       product: 'PRODUCT',
       vehicle: 'VEHICLE',
       vehicle_offer: 'VEHICLE_OFFER',
@@ -299,15 +298,6 @@ export default class AdAccount extends AbstractCrudObject {
     );
   }
 
-  createAdSet (fields: Array<string>, params: Object = {}): Promise<AdSet> {
-    return this.createEdge(
-      '/ad_sets',
-      fields,
-      params,
-      AdSet
-    );
-  }
-
   getAdStudies (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       AdStudy,
@@ -315,16 +305,6 @@ export default class AdAccount extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/ad_studies'
-    );
-  }
-
-  getAdContracts (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      AdContract,
-      fields,
-      params,
-      fetchFirstPage,
-      '/adcontracts'
     );
   }
 
@@ -421,13 +401,6 @@ export default class AdAccount extends AbstractCrudObject {
     );
   }
 
-  deleteAdReportRuns (params: Object = {}): Promise<*> {
-    return super.deleteEdge(
-      '/adreportruns',
-      params
-    );
-  }
-
   getAdReportSchedules (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       AbstractObject,
@@ -502,6 +475,16 @@ export default class AdAccount extends AbstractCrudObject {
     );
   }
 
+  getAdsVolume (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      AdAccountAdVolume,
+      fields,
+      params,
+      fetchFirstPage,
+      '/ads_volume'
+    );
+  }
+
   getAdsByLabels (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       Ad,
@@ -519,6 +502,15 @@ export default class AdAccount extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/adsets'
+    );
+  }
+
+  createAdSet (fields: Array<string>, params: Object = {}): Promise<AdSet> {
+    return this.createEdge(
+      '/adsets',
+      fields,
+      params,
+      AdSet
     );
   }
 
@@ -548,26 +540,6 @@ export default class AdAccount extends AbstractCrudObject {
       fields,
       params,
       AdsPixel
-    );
-  }
-
-  getAdToplineDetails (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      AdToplineDetail,
-      fields,
-      params,
-      fetchFirstPage,
-      '/adtoplinedetails'
-    );
-  }
-
-  getAdTopLines (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      AdTopline,
-      fields,
-      params,
-      fetchFirstPage,
-      '/adtoplines'
     );
   }
 
@@ -773,16 +745,6 @@ export default class AdAccount extends AbstractCrudObject {
     );
   }
 
-  getBusinessProjects (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      BusinessProject,
-      fields,
-      params,
-      fetchFirstPage,
-      '/businessprojects'
-    );
-  }
-
   deleteCampaigns (params: Object = {}): Promise<*> {
     return super.deleteEdge(
       '/campaigns',
@@ -816,6 +778,16 @@ export default class AdAccount extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/campaignsbylabels'
+    );
+  }
+
+  getContentDeliveryReport (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      ContentDeliveryReport,
+      fields,
+      params,
+      fetchFirstPage,
+      '/content_delivery_report'
     );
   }
 
@@ -963,16 +935,6 @@ export default class AdAccount extends AbstractCrudObject {
     );
   }
 
-  getLeadGenForms (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      LeadgenForm,
-      fields,
-      params,
-      fetchFirstPage,
-      '/leadgen_forms'
-    );
-  }
-
   getMatchedSearchApplications (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       AdAccountMatchedSearchApplicationsEdgeData,
@@ -1116,6 +1078,32 @@ export default class AdAccount extends AbstractCrudObject {
       fields,
       params,
       
+    );
+  }
+
+  deleteSubscribedApps (params: Object = {}): Promise<*> {
+    return super.deleteEdge(
+      '/subscribed_apps',
+      params
+    );
+  }
+
+  getSubscribedApps (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      AdAccountSubscribedApps,
+      fields,
+      params,
+      fetchFirstPage,
+      '/subscribed_apps'
+    );
+  }
+
+  createSubscribedApp (fields: Array<string>, params: Object = {}): Promise<AdAccountSubscribedApps> {
+    return this.createEdge(
+      '/subscribed_apps',
+      fields,
+      params,
+      AdAccountSubscribedApps
     );
   }
 

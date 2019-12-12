@@ -22,6 +22,7 @@ export default class BusinessCreativeFolder extends AbstractCrudObject {
     return Object.freeze({
       business: 'business',
       creation_time: 'creation_time',
+      description: 'description',
       id: 'id',
       name: 'name',
     });
@@ -69,13 +70,6 @@ export default class BusinessCreativeFolder extends AbstractCrudObject {
       fields,
       params,
       BusinessCreativeFolder
-    );
-  }
-
-  deleteAssignedUsers (params: Object = {}): Promise<*> {
-    return super.deleteEdge(
-      '/assigned_users',
-      params
     );
   }
 
