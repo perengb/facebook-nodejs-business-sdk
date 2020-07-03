@@ -9,15 +9,14 @@
 import {AbstractCrudObject} from './../abstract-crud-object';
 
 /**
- * AppLinks
+ * CatalogItemAppLinks
  * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
-export default class AppLinks extends AbstractCrudObject {
+export default class CatalogItemAppLinks extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
       android: 'android',
-      id: 'id',
       ios: 'ios',
       ipad: 'ipad',
       iphone: 'iphone',
@@ -28,13 +27,4 @@ export default class AppLinks extends AbstractCrudObject {
     });
   }
 
-
-  
-  get (fields: Array<string>, params: Object = {}): AppLinks {
-    // $FlowFixMe : Support Generic Types
-    return this.read(
-      fields,
-      params
-    );
-  }
 }

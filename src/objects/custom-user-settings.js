@@ -9,15 +9,15 @@
 import {AbstractCrudObject} from './../abstract-crud-object';
 
 /**
- * AdsTALHealthCheckError
+ * CustomUserSettings
  * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
-export default class AdsTALHealthCheckError extends AbstractCrudObject {
+export default class CustomUserSettings extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
-      error_code: 'error_code',
-      target_id: 'target_id',
+      page_level_persistent_menu: 'page_level_persistent_menu',
+      user_level_persistent_menu: 'user_level_persistent_menu',
     });
   }
 

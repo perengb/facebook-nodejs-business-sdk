@@ -7,12 +7,10 @@
  * @flow
  */
 import {AbstractCrudObject} from './../abstract-crud-object';
-import AbstractObject from './../abstract-object';
 import Cursor from './../cursor';
-import Profile from './profile';
 import NullNode from './null-node';
 import LiveVideo from './live-video';
-import Photo from './photo';
+import Profile from './profile';
 
 /**
  * Event
@@ -36,6 +34,7 @@ export default class Event extends AbstractCrudObject {
       interested_count: 'interested_count',
       is_canceled: 'is_canceled',
       is_draft: 'is_draft',
+      is_online: 'is_online',
       is_page_owned: 'is_page_owned',
       maybe_count: 'maybe_count',
       name: 'name',
@@ -106,23 +105,6 @@ export default class Event extends AbstractCrudObject {
       upcoming: 'upcoming',
     });
   }
-  static get PromotableEventTypes (): Object {
-    return Object.freeze({
-      offsite_ticket: 'OFFSITE_TICKET',
-      onsite_ticket: 'ONSITE_TICKET',
-      rsvp: 'RSVP',
-    });
-  }
-
-  getAdmins (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      Profile,
-      fields,
-      params,
-      fetchFirstPage,
-      '/admins'
-    );
-  }
 
   getComments (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
@@ -141,15 +123,6 @@ export default class Event extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/feed'
-    );
-  }
-
-  createFeed (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
-    return this.createEdge(
-      '/feed',
-      fields,
-      params,
-      
     );
   }
 
@@ -179,15 +152,6 @@ export default class Event extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/photos'
-    );
-  }
-
-  createPhoto (fields: Array<string>, params: Object = {}): Promise<Photo> {
-    return this.createEdge(
-      '/photos',
-      fields,
-      params,
-      Photo
     );
   }
 

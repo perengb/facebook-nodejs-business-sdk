@@ -9,28 +9,32 @@
 import {AbstractCrudObject} from './../abstract-crud-object';
 
 /**
- * PageInsightsAsyncExportRun
+ * BusinessCreativeFolderSharingAgreement
  * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
-export default class PageInsightsAsyncExportRun extends AbstractCrudObject {
+export default class BusinessCreativeFolderSharingAgreement extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
-      data_level: 'data_level',
-      filters: 'filters',
-      format: 'format',
-      gen_report_date: 'gen_report_date',
+      folder_id: 'folder_id',
       id: 'id',
-      report_end_date: 'report_end_date',
-      report_start_date: 'report_start_date',
-      sorters: 'sorters',
+      requesting_business: 'requesting_business',
       status: 'status',
     });
   }
 
+  static get RequestStatus (): Object {
+    return Object.freeze({
+      approve: 'APPROVE',
+      decline: 'DECLINE',
+      expired: 'EXPIRED',
+      in_progress: 'IN_PROGRESS',
+      pending: 'PENDING',
+    });
+  }
 
   
-  get (fields: Array<string>, params: Object = {}): PageInsightsAsyncExportRun {
+  get (fields: Array<string>, params: Object = {}): BusinessCreativeFolderSharingAgreement {
     // $FlowFixMe : Support Generic Types
     return this.read(
       fields,

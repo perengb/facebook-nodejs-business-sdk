@@ -58,10 +58,12 @@ export default class AdSet extends AbstractCrudObject {
       instagram_actor_id: 'instagram_actor_id',
       is_dynamic_creative: 'is_dynamic_creative',
       issues_info: 'issues_info',
+      learning_stage_info: 'learning_stage_info',
       lifetime_budget: 'lifetime_budget',
       lifetime_imps: 'lifetime_imps',
       lifetime_min_spend_target: 'lifetime_min_spend_target',
       lifetime_spend_cap: 'lifetime_spend_cap',
+      multi_optimization_goal_weight: 'multi_optimization_goal_weight',
       name: 'name',
       optimization_goal: 'optimization_goal',
       optimization_sub_event: 'optimization_sub_event',
@@ -85,6 +87,7 @@ export default class AdSet extends AbstractCrudObject {
 
   static get BidStrategy (): Object {
     return Object.freeze({
+      cost_cap: 'COST_CAP',
       lowest_cost_without_cap: 'LOWEST_COST_WITHOUT_CAP',
       lowest_cost_with_bid_cap: 'LOWEST_COST_WITH_BID_CAP',
       target_cost: 'TARGET_COST',
@@ -101,7 +104,6 @@ export default class AdSet extends AbstractCrudObject {
       page_likes: 'PAGE_LIKES',
       post_engagement: 'POST_ENGAGEMENT',
       thruplay: 'THRUPLAY',
-      video_views: 'VIDEO_VIEWS',
     });
   }
   static get ConfiguredStatus (): Object {
@@ -149,7 +151,7 @@ export default class AdSet extends AbstractCrudObject {
       thruplay: 'THRUPLAY',
       two_second_continuous_video_views: 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS',
       value: 'VALUE',
-      video_views: 'VIDEO_VIEWS',
+      visit_instagram_profile: 'VISIT_INSTAGRAM_PROFILE',
     });
   }
   static get Status (): Object {
@@ -204,6 +206,14 @@ export default class AdSet extends AbstractCrudObject {
       extended_exploration: 'EXTENDED_EXPLORATION',
       limited_exploration: 'LIMITED_EXPLORATION',
       none_exploration: 'NONE_EXPLORATION',
+    });
+  }
+  static get MultiOptimizationGoalWeight (): Object {
+    return Object.freeze({
+      balanced: 'BALANCED',
+      prefer_event: 'PREFER_EVENT',
+      prefer_install: 'PREFER_INSTALL',
+      undefined: 'UNDEFINED',
     });
   }
   static get OptimizationSubEvent (): Object {

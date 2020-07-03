@@ -50,6 +50,7 @@ export default class Campaign extends AbstractCrudObject {
       recommendations: 'recommendations',
       source_campaign: 'source_campaign',
       source_campaign_id: 'source_campaign_id',
+      special_ad_categories: 'special_ad_categories',
       special_ad_category: 'special_ad_category',
       spend_cap: 'spend_cap',
       start_time: 'start_time',
@@ -62,6 +63,7 @@ export default class Campaign extends AbstractCrudObject {
 
   static get BidStrategy (): Object {
     return Object.freeze({
+      cost_cap: 'COST_CAP',
       lowest_cost_without_cap: 'LOWEST_COST_WITHOUT_CAP',
       lowest_cost_with_bid_cap: 'LOWEST_COST_WITH_BID_CAP',
       target_cost: 'TARGET_COST',
@@ -137,10 +139,11 @@ export default class Campaign extends AbstractCrudObject {
       post_engagement: 'POST_ENGAGEMENT',
       product_catalog_sales: 'PRODUCT_CATALOG_SALES',
       reach: 'REACH',
+      store_visits: 'STORE_VISITS',
       video_views: 'VIDEO_VIEWS',
     });
   }
-  static get SpecialAdCategory (): Object {
+  static get SpecialAdCategories (): Object {
     return Object.freeze({
       credit: 'CREDIT',
       employment: 'EMPLOYMENT',
@@ -152,6 +155,14 @@ export default class Campaign extends AbstractCrudObject {
     return Object.freeze({
       all: 'ALL',
       any: 'ANY',
+    });
+  }
+  static get SpecialAdCategory (): Object {
+    return Object.freeze({
+      credit: 'CREDIT',
+      employment: 'EMPLOYMENT',
+      housing: 'HOUSING',
+      none: 'NONE',
     });
   }
   static get StatusOption (): Object {
@@ -169,13 +180,6 @@ export default class Campaign extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/ad_studies'
-    );
-  }
-
-  deleteAdLabels (params: Object = {}): Promise<*> {
-    return super.deleteEdge(
-      '/adlabels',
-      params
     );
   }
 

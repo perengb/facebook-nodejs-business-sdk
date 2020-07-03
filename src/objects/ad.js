@@ -45,7 +45,6 @@ export default class Ad extends AbstractCrudObject {
       engagement_audience: 'engagement_audience',
       failed_delivery_checks: 'failed_delivery_checks',
       id: 'id',
-      is_autobid: 'is_autobid',
       issues_info: 'issues_info',
       last_updated_by_app_id: 'last_updated_by_app_id',
       name: 'name',
@@ -157,13 +156,6 @@ export default class Ad extends AbstractCrudObject {
     );
   }
 
-  deleteAdLabels (params: Object = {}): Promise<*> {
-    return super.deleteEdge(
-      '/adlabels',
-      params
-    );
-  }
-
   createAdLabel (fields: Array<string>, params: Object = {}): Promise<Ad> {
     return this.createEdge(
       '/adlabels',
@@ -248,15 +240,6 @@ export default class Ad extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/targetingsentencelines'
-    );
-  }
-
-  createTrackingTag (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
-    return this.createEdge(
-      '/trackingtag',
-      fields,
-      params,
-      
     );
   }
 

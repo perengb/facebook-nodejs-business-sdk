@@ -27,6 +27,7 @@ export default class BusinessAgreement extends AbstractCrudObject {
       decline: 'DECLINE',
       expired: 'EXPIRED',
       in_progress: 'IN_PROGRESS',
+      pending: 'PENDING',
     });
   }
 

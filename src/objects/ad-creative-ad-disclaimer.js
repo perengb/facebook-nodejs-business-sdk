@@ -9,28 +9,17 @@
 import {AbstractCrudObject} from './../abstract-crud-object';
 
 /**
- * VaultDeletedImage
+ * AdCreativeAdDisclaimer
  * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
-export default class VaultDeletedImage extends AbstractCrudObject {
+export default class AdCreativeAdDisclaimer extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
-      client_image_hash: 'client_image_hash',
-      date_taken: 'date_taken',
-      id: 'id',
-      owner: 'owner',
-      remote_id: 'remote_id',
+      text: 'text',
+      title: 'title',
+      url: 'url',
     });
   }
 
-
-  
-  get (fields: Array<string>, params: Object = {}): VaultDeletedImage {
-    // $FlowFixMe : Support Generic Types
-    return this.read(
-      fields,
-      params
-    );
-  }
 }

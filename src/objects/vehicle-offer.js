@@ -33,6 +33,8 @@ export default class VehicleOffer extends AbstractCrudObject {
       end_time: 'end_time',
       id: 'id',
       images: 'images',
+      make: 'make',
+      model: 'model',
       offer_description: 'offer_description',
       offer_disclaimer: 'offer_disclaimer',
       offer_type: 'offer_type',

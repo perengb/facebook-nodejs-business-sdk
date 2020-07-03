@@ -9,25 +9,19 @@
 import {AbstractCrudObject} from './../abstract-crud-object';
 
 /**
- * BusinessPixelTOS
+ * CommerceMerchantSettingsSetupStatus
  * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
-export default class BusinessPixelTOS extends AbstractCrudObject {
+export default class CommerceMerchantSettingsSetupStatus extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
-      accept_time: 'accept_time',
-      id: 'id',
+      deals_setup: 'deals_setup',
+      marketplace_approval_status: 'marketplace_approval_status',
+      marketplace_approval_status_details: 'marketplace_approval_status_details',
+      payment_setup: 'payment_setup',
+      shop_setup: 'shop_setup',
     });
   }
 
-
-  
-  get (fields: Array<string>, params: Object = {}): BusinessPixelTOS {
-    // $FlowFixMe : Support Generic Types
-    return this.read(
-      fields,
-      params
-    );
-  }
 }

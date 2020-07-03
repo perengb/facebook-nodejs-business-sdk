@@ -9,15 +9,15 @@
 import {AbstractCrudObject} from './../abstract-crud-object';
 
 /**
- * ReachFrequencyEstimatesDemoBreakdown
+ * ProductFeedUploadDiagnosticsReport
  * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
-export default class ReachFrequencyEstimatesDemoBreakdown extends AbstractCrudObject {
+export default class ProductFeedUploadDiagnosticsReport extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
-      female: 'female',
-      male: 'male',
+      last_updated_time: 'last_updated_time',
+      report_url: 'report_url',
     });
   }
 
