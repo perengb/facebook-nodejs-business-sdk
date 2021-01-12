@@ -16,7 +16,7 @@ import Cursor from './../cursor';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class CommerceOrderTransactionDetail extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       net_payment_amount: 'net_payment_amount',
       order_details: 'order_details',
@@ -30,6 +30,16 @@ export default class CommerceOrderTransactionDetail extends AbstractCrudObject {
     });
   }
 
+
+  getItems (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      AbstractObject,
+      fields,
+      params,
+      fetchFirstPage,
+      '/items'
+    );
+  }
 
   getTaxDetails (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(

@@ -27,7 +27,7 @@ import TargetingSentenceLine from './targeting-sentence-line';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdSet extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       account_id: 'account_id',
       adlabels: 'adlabels',
@@ -145,6 +145,7 @@ export default class AdSet extends AbstractCrudObject {
       page_engagement: 'PAGE_ENGAGEMENT',
       page_likes: 'PAGE_LIKES',
       post_engagement: 'POST_ENGAGEMENT',
+      quality_lead: 'QUALITY_LEAD',
       reach: 'REACH',
       replies: 'REPLIES',
       social_impressions: 'SOCIAL_IMPRESSIONS',
@@ -235,6 +236,7 @@ export default class AdSet extends AbstractCrudObject {
       credit: 'CREDIT',
       employment: 'EMPLOYMENT',
       housing: 'HOUSING',
+      issues_elections_politics: 'ISSUES_ELECTIONS_POLITICS',
       none: 'NONE',
     });
   }

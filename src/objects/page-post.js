@@ -22,7 +22,7 @@ import Page from './page';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class PagePost extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       actions: 'actions',
       admin_creator: 'admin_creator',
@@ -49,6 +49,7 @@ export default class PagePost extends AbstractCrudObject {
       id: 'id',
       implicit_place: 'implicit_place',
       instagram_eligibility: 'instagram_eligibility',
+      instream_eligibility: 'instream_eligibility',
       is_app_share: 'is_app_share',
       is_eligible_for_promotion: 'is_eligible_for_promotion',
       is_expired: 'is_expired',
@@ -67,6 +68,7 @@ export default class PagePost extends AbstractCrudObject {
       permalink_url: 'permalink_url',
       picture: 'picture',
       place: 'place',
+      poll: 'poll',
       privacy: 'privacy',
       promotable_id: 'promotable_id',
       promotion_status: 'promotion_status',

@@ -15,7 +15,6 @@ import AdNetworkAnalyticsSyncQueryResult from './ad-network-analytics-sync-query
 import AdNetworkAnalyticsAsyncQueryResult from './ad-network-analytics-async-query-result';
 import AdsPixel from './ads-pixel';
 import AdPlacement from './ad-placement';
-import BusinessCreativeFolderSharingAgreement from './business-creative-folder-sharing-agreement';
 import BusinessAssetGroup from './business-asset-group';
 import OracleTransaction from './oracle-transaction';
 import BusinessUnit from './business-unit';
@@ -24,17 +23,17 @@ import CustomConversion from './custom-conversion';
 import Application from './application';
 import Page from './page';
 import ProductCatalog from './product-catalog';
+import WhatsAppBusinessAccount from './whats-app-business-account';
+import CPASCollaborationRequest from './cpas-collaboration-request';
+import CPASAdvertiserPartnershipRecommendation from './cpas-advertiser-partnership-recommendation';
 import CommerceMerchantSettings from './commerce-merchant-settings';
 import ContentDeliveryReport from './content-delivery-report';
-import CreativeAssetTag from './creative-asset-tag';
-import BusinessCreativeFolder from './business-creative-folder';
-import BusinessCreative from './business-creative';
 import EventSourceGroup from './event-source-group';
 import ExtendedCredit from './extended-credit';
-import BusinessImage from './business-image';
 import BusinessAssetSharingAgreement from './business-asset-sharing-agreement';
 import BusinessAgreement from './business-agreement';
 import InstagramUser from './instagram-user';
+import IGUser from './ig-user';
 import OfflineConversionDataSet from './offline-conversion-data-set';
 import BusinessAdAccountRequest from './business-ad-account-request';
 import BusinessApplicationRequest from './business-application-request';
@@ -44,7 +43,6 @@ import ProfilePictureSource from './profile-picture-source';
 import SystemUser from './system-user';
 import ThirdPartyMeasurementReportDataset from './third-party-measurement-report-dataset';
 import MeasurementUploadEvent from './measurement-upload-event';
-import AdVideo from './ad-video';
 
 /**
  * Business
@@ -52,7 +50,7 @@ import AdVideo from './ad-video';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Business extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       block_offline_analytics: 'block_offline_analytics',
       created_by: 'created_by',
@@ -113,9 +111,6 @@ export default class Business extends AbstractCrudObject {
     return Object.freeze({
       advertise: 'ADVERTISE',
       analyze: 'ANALYZE',
-      creative: 'CREATIVE',
-      draft: 'DRAFT',
-      fb_employee_dso_advertise: 'FB_EMPLOYEE_DSO_ADVERTISE',
       manage: 'MANAGE',
     });
   }
@@ -136,6 +131,7 @@ export default class Business extends AbstractCrudObject {
       manage: 'MANAGE',
       manage_jobs: 'MANAGE_JOBS',
       manage_leads: 'MANAGE_LEADS',
+      messaging: 'MESSAGING',
       moderate: 'MODERATE',
       moderate_community: 'MODERATE_COMMUNITY',
       pages_messaging: 'PAGES_MESSAGING',
@@ -157,6 +153,13 @@ export default class Business extends AbstractCrudObject {
       fields,
       params,
       Business
+    );
+  }
+
+  deleteAdAccounts (params: Object = {}): Promise<*> {
+    return super.deleteEdge(
+      '/ad_accounts',
+      params
     );
   }
 
@@ -253,6 +256,15 @@ export default class Business extends AbstractCrudObject {
     );
   }
 
+  createAggregateRevenue (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
+    return this.createEdge(
+      '/aggregate_revenue',
+      fields,
+      params,
+      
+    );
+  }
+
   getAnPlacements (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       AdPlacement,
@@ -260,16 +272,6 @@ export default class Business extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/an_placements'
-    );
-  }
-
-  getAttemptedSharingAgreements (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      BusinessCreativeFolderSharingAgreement,
-      fields,
-      params,
-      fetchFirstPage,
-      '/attempted_sharing_agreements'
     );
   }
 
@@ -328,15 +330,6 @@ export default class Business extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/business_users'
-    );
-  }
-
-  createBusinessUser (fields: Array<string>, params: Object = {}): Promise<BusinessUser> {
-    return this.createEdge(
-      '/business_users',
-      fields,
-      params,
-      BusinessUser
     );
   }
 
@@ -426,6 +419,16 @@ export default class Business extends AbstractCrudObject {
     );
   }
 
+  getClientWhatsAppBusinessAccounts (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      WhatsAppBusinessAccount,
+      fields,
+      params,
+      fetchFirstPage,
+      '/client_whatsapp_business_accounts'
+    );
+  }
+
   deleteClients (params: Object = {}): Promise<*> {
     return super.deleteEdge(
       '/clients',
@@ -440,6 +443,35 @@ export default class Business extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/clients'
+    );
+  }
+
+  getCollaborativeAdsCollaborationRequests (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      CPASCollaborationRequest,
+      fields,
+      params,
+      fetchFirstPage,
+      '/collaborative_ads_collaboration_requests'
+    );
+  }
+
+  createCollaborativeAdsCollaborationRequest (fields: Array<string>, params: Object = {}): Promise<CPASCollaborationRequest> {
+    return this.createEdge(
+      '/collaborative_ads_collaboration_requests',
+      fields,
+      params,
+      CPASCollaborationRequest
+    );
+  }
+
+  getCollaborativeAdsSuggestedPartners (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      CPASAdvertiserPartnershipRecommendation,
+      fields,
+      params,
+      fetchFirstPage,
+      '/collaborative_ads_suggested_partners'
     );
   }
 
@@ -463,42 +495,12 @@ export default class Business extends AbstractCrudObject {
     );
   }
 
-  getCreativeAssetTags (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      CreativeAssetTag,
-      fields,
-      params,
-      fetchFirstPage,
-      '/creative_asset_tags'
-    );
-  }
-
-  getCreativeFolders (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      BusinessCreativeFolder,
-      fields,
-      params,
-      fetchFirstPage,
-      '/creative_folders'
-    );
-  }
-
-  createCreativeFolder (fields: Array<string>, params: Object = {}): Promise<BusinessCreativeFolder> {
+  createCreateAndApplyPublisherBlockList (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
     return this.createEdge(
-      '/creative_folders',
+      '/create_and_apply_publisher_block_list',
       fields,
       params,
-      BusinessCreativeFolder
-    );
-  }
-
-  getCreatives (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      BusinessCreative,
-      fields,
-      params,
-      fetchFirstPage,
-      '/creatives'
+      
     );
   }
 
@@ -540,15 +542,6 @@ export default class Business extends AbstractCrudObject {
     );
   }
 
-  createImage (fields: Array<string>, params: Object = {}): Promise<BusinessImage> {
-    return this.createEdge(
-      '/images',
-      fields,
-      params,
-      BusinessImage
-    );
-  }
-
   getInitiatedAudienceSharingRequests (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       BusinessAssetSharingAgreement,
@@ -583,6 +576,16 @@ export default class Business extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/instagram_accounts'
+    );
+  }
+
+  getInstagramBusinessAccounts (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      IGUser,
+      fields,
+      params,
+      fetchFirstPage,
+      '/instagram_business_accounts'
     );
   }
 
@@ -752,6 +755,16 @@ export default class Business extends AbstractCrudObject {
     );
   }
 
+  getOwnedWhatsAppBusinessAccounts (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      WhatsAppBusinessAccount,
+      fields,
+      params,
+      fetchFirstPage,
+      '/owned_whatsapp_business_accounts'
+    );
+  }
+
   deletePages (params: Object = {}): Promise<*> {
     return super.deleteEdge(
       '/pages',
@@ -806,16 +819,6 @@ export default class Business extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/pending_owned_pages'
-    );
-  }
-
-  getPendingSharedCreativeFolders (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      BusinessCreativeFolder,
-      fields,
-      params,
-      fetchFirstPage,
-      '/pending_shared_creative_folders'
     );
   }
 
@@ -878,15 +881,6 @@ export default class Business extends AbstractCrudObject {
     );
   }
 
-  createSystemUser (fields: Array<string>, params: Object = {}): Promise<SystemUser> {
-    return this.createEdge(
-      '/system_users',
-      fields,
-      params,
-      SystemUser
-    );
-  }
-
   getThirdPartyMeasurementReportDataset (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       ThirdPartyMeasurementReportDataset,
@@ -903,15 +897,6 @@ export default class Business extends AbstractCrudObject {
       fields,
       params,
       MeasurementUploadEvent
-    );
-  }
-
-  createVideo (fields: Array<string>, params: Object = {}): Promise<AdVideo> {
-    return this.createEdge(
-      '/videos',
-      fields,
-      params,
-      AdVideo
     );
   }
 

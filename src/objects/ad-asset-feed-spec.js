@@ -14,7 +14,7 @@ import {AbstractCrudObject} from './../abstract-crud-object';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdAssetFeedSpec extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       ad_formats: 'ad_formats',
       additional_data: 'additional_data',
@@ -30,6 +30,7 @@ export default class AdAssetFeedSpec extends AbstractCrudObject {
       images: 'images',
       link_urls: 'link_urls',
       optimization_type: 'optimization_type',
+      posts: 'posts',
       titles: 'titles',
       videos: 'videos',
     });
@@ -77,15 +78,20 @@ export default class AdAssetFeedSpec extends AbstractCrudObject {
       play_game: 'PLAY_GAME',
       purchase_gift_cards: 'PURCHASE_GIFT_CARDS',
       record_now: 'RECORD_NOW',
+      refer_friends: 'REFER_FRIENDS',
       request_time: 'REQUEST_TIME',
       say_thanks: 'SAY_THANKS',
       see_more: 'SEE_MORE',
       sell_now: 'SELL_NOW',
+      send_a_gift: 'SEND_A_GIFT',
       share: 'SHARE',
       shop_now: 'SHOP_NOW',
       sign_up: 'SIGN_UP',
       sotto_subscribe: 'SOTTO_SUBSCRIBE',
+      start_order: 'START_ORDER',
       subscribe: 'SUBSCRIBE',
+      swipe_up_product: 'SWIPE_UP_PRODUCT',
+      swipe_up_shop: 'SWIPE_UP_SHOP',
       update_app: 'UPDATE_APP',
       use_app: 'USE_APP',
       use_mobile_app: 'USE_MOBILE_APP',

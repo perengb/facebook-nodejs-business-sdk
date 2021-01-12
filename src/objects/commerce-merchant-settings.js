@@ -19,13 +19,15 @@ import CommerceMerchantSettingsSetupStatus from './commerce-merchant-settings-se
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class CommerceMerchantSettings extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       braintree_merchant_id: 'braintree_merchant_id',
       checkout_message: 'checkout_message',
       contact_email: 'contact_email',
+      cta: 'cta',
       disable_checkout_urls: 'disable_checkout_urls',
       display_name: 'display_name',
+      external_merchant_id: 'external_merchant_id',
       facebook_channel: 'facebook_channel',
       has_discount_code: 'has_discount_code',
       id: 'id',
@@ -42,40 +44,10 @@ export default class CommerceMerchantSettings extends AbstractCrudObject {
       supported_card_types: 'supported_card_types',
       terms: 'terms',
       terms_url_by_locale: 'terms_url_by_locale',
+      whatsapp_channel: 'whatsapp_channel',
     });
   }
 
-  static get MerchantStatus (): Object {
-    return Object.freeze({
-      enabled: 'ENABLED',
-      externally_disabled: 'EXTERNALLY_DISABLED',
-    });
-  }
-
-  createFacebookChannel (fields: Array<string>, params: Object = {}): Promise<CommerceMerchantSettings> {
-    return this.createEdge(
-      '/facebook_channel',
-      fields,
-      params,
-      CommerceMerchantSettings
-    );
-  }
-
-  deleteInstagramChannel (params: Object = {}): Promise<*> {
-    return super.deleteEdge(
-      '/instagram_channel',
-      params
-    );
-  }
-
-  createInstagramChannel (fields: Array<string>, params: Object = {}): Promise<CommerceMerchantSettings> {
-    return this.createEdge(
-      '/instagram_channel',
-      fields,
-      params,
-      CommerceMerchantSettings
-    );
-  }
 
   getOrderManagementApps (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
@@ -126,6 +98,25 @@ export default class CommerceMerchantSettings extends AbstractCrudObject {
     );
   }
 
+  getShippingProfiles (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      AbstractObject,
+      fields,
+      params,
+      fetchFirstPage,
+      '/shipping_profiles'
+    );
+  }
+
+  createShippingProfile (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
+    return this.createEdge(
+      '/shipping_profiles',
+      fields,
+      params,
+      
+    );
+  }
+
   getTaxSettings (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       AbstractObject,
@@ -136,19 +127,20 @@ export default class CommerceMerchantSettings extends AbstractCrudObject {
     );
   }
 
+  createWhatsappChannel (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
+    return this.createEdge(
+      '/whatsapp_channel',
+      fields,
+      params,
+      
+    );
+  }
+
   
   get (fields: Array<string>, params: Object = {}): CommerceMerchantSettings {
     // $FlowFixMe : Support Generic Types
     return this.read(
       fields,
-      params
-    );
-  }
-
-  // $FlowFixMe : Support Generic Types
-  update (fields: Array<string>, params: Object = {}): CommerceMerchantSettings {
-    // $FlowFixMe : Support Generic Types
-    return super.update(
       params
     );
   }

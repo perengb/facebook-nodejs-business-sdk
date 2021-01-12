@@ -23,7 +23,7 @@ import AdVideo from './ad-video';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Group extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       archived: 'archived',
       cover: 'cover',
@@ -94,9 +94,11 @@ export default class Group extends AbstractCrudObject {
       school_class: 'SCHOOL_CLASS',
       sorority: 'SORORITY',
       sports: 'SPORTS',
+      streamer: 'STREAMER',
       study_group: 'STUDY_GROUP',
       support: 'SUPPORT',
       teammates: 'TEAMMATES',
+      theme: 'THEME',
       travel_planning: 'TRAVEL_PLANNING',
       work_announcement: 'WORK_ANNOUNCEMENT',
       work_demo_group: 'WORK_DEMO_GROUP',
@@ -104,10 +106,12 @@ export default class Group extends AbstractCrudObject {
       work_ephemeral: 'WORK_EPHEMERAL',
       work_feedback: 'WORK_FEEDBACK',
       work_for_sale: 'WORK_FOR_SALE',
+      work_garden: 'WORK_GARDEN',
       work_learning: 'WORK_LEARNING',
       work_mentorship: 'WORK_MENTORSHIP',
       work_multi_company: 'WORK_MULTI_COMPANY',
       work_recruiting: 'WORK_RECRUITING',
+      work_resume_review: 'WORK_RESUME_REVIEW',
       work_social: 'WORK_SOCIAL',
       work_team: 'WORK_TEAM',
       work_teamwork: 'WORK_TEAMWORK',
@@ -147,9 +151,11 @@ export default class Group extends AbstractCrudObject {
       school_class: 'SCHOOL_CLASS',
       sorority: 'SORORITY',
       sports: 'SPORTS',
+      streamer: 'STREAMER',
       study_group: 'STUDY_GROUP',
       support: 'SUPPORT',
       teammates: 'TEAMMATES',
+      theme: 'THEME',
       travel_planning: 'TRAVEL_PLANNING',
       work_announcement: 'WORK_ANNOUNCEMENT',
       work_demo_group: 'WORK_DEMO_GROUP',
@@ -157,10 +163,12 @@ export default class Group extends AbstractCrudObject {
       work_ephemeral: 'WORK_EPHEMERAL',
       work_feedback: 'WORK_FEEDBACK',
       work_for_sale: 'WORK_FOR_SALE',
+      work_garden: 'WORK_GARDEN',
       work_learning: 'WORK_LEARNING',
       work_mentorship: 'WORK_MENTORSHIP',
       work_multi_company: 'WORK_MULTI_COMPANY',
       work_recruiting: 'WORK_RECRUITING',
+      work_resume_review: 'WORK_RESUME_REVIEW',
       work_social: 'WORK_SOCIAL',
       work_team: 'WORK_TEAM',
       work_teamwork: 'WORK_TEAMWORK',

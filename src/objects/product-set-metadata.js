@@ -9,17 +9,17 @@
 import {AbstractCrudObject} from './../abstract-crud-object';
 
 /**
- * ClientTransparencyStatus
+ * ProductSetMetadata
  * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
-export default class ClientTransparencyStatus extends AbstractCrudObject {
-  static get Fields () {
+export default class ProductSetMetadata extends AbstractCrudObject {
+  static get Fields (): Object {
     return Object.freeze({
-      grace_period_expiration_date: 'grace_period_expiration_date',
-      has_owning_business: 'has_owning_business',
-      is_satisfied: 'is_satisfied',
-      owning_business_requirements: 'owning_business_requirements',
+      cover_image_url: 'cover_image_url',
+      description: 'description',
+      external_url: 'external_url',
+      integrity_review_status: 'integrity_review_status',
     });
   }
 

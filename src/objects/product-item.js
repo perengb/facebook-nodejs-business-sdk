@@ -17,7 +17,7 @@ import ProductSet from './product-set';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class ProductItem extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       additional_image_cdn_urls: 'additional_image_cdn_urls',
       additional_image_urls: 'additional_image_urls',
@@ -28,6 +28,7 @@ export default class ProductItem extends AbstractCrudObject {
       brand: 'brand',
       capability_to_review_status: 'capability_to_review_status',
       category: 'category',
+      category_specific_fields: 'category_specific_fields',
       color: 'color',
       commerce_insights: 'commerce_insights',
       condition: 'condition',
@@ -40,11 +41,13 @@ export default class ProductItem extends AbstractCrudObject {
       custom_label_4: 'custom_label_4',
       description: 'description',
       expiration_date: 'expiration_date',
+      fb_product_category: 'fb_product_category',
       gender: 'gender',
       gtin: 'gtin',
       id: 'id',
       image_cdn_urls: 'image_cdn_urls',
       image_url: 'image_url',
+      images: 'images',
       inventory: 'inventory',
       manufacturer_part_number: 'manufacturer_part_number',
       material: 'material',

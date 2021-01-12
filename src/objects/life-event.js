@@ -10,7 +10,6 @@ import {AbstractCrudObject} from './../abstract-crud-object';
 import Cursor from './../cursor';
 import Comment from './comment';
 import Profile from './profile';
-import Photo from './photo';
 
 /**
  * LifeEvent
@@ -18,7 +17,7 @@ import Photo from './photo';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class LifeEvent extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       description: 'description',
       end_time: 'end_time',
@@ -49,16 +48,6 @@ export default class LifeEvent extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/likes'
-    );
-  }
-
-  getPhotos (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      Photo,
-      fields,
-      params,
-      fetchFirstPage,
-      '/photos'
     );
   }
 
