@@ -11,7 +11,6 @@ import AbstractObject from './../abstract-object';
 import Cursor from './../cursor';
 import AdAccount from './ad-account';
 import Ad from './ad';
-import CustomAudiencePrefillState from './custom-audience-prefill-state';
 import CustomAudienceSession from './custom-audience-session';
 import CustomAudiencesharedAccountInfo from './custom-audienceshared-account-info';
 
@@ -21,7 +20,7 @@ import CustomAudiencesharedAccountInfo from './custom-audienceshared-account-inf
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class CustomAudience extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       account_id: 'account_id',
       approximate_count: 'approximate_count',
@@ -29,6 +28,7 @@ export default class CustomAudience extends AbstractCrudObject {
       data_source: 'data_source',
       data_source_types: 'data_source_types',
       datafile_custom_audience_uploading_status: 'datafile_custom_audience_uploading_status',
+      delete_time: 'delete_time',
       delivery_status: 'delivery_status',
       description: 'description',
       excluded_custom_audiences: 'excluded_custom_audiences',
@@ -80,7 +80,10 @@ export default class CustomAudience extends AbstractCrudObject {
       flight: 'FLIGHT',
       home_listing: 'HOME_LISTING',
       hotel: 'HOTEL',
+      local_service_business: 'LOCAL_SERVICE_BUSINESS',
+      location_based_item: 'LOCATION_BASED_ITEM',
       media_title: 'MEDIA_TITLE',
+      offline_product: 'OFFLINE_PRODUCT',
       product: 'PRODUCT',
       vehicle: 'VEHICLE',
       vehicle_offer: 'VEHICLE_OFFER',
@@ -149,32 +152,6 @@ export default class CustomAudience extends AbstractCrudObject {
     );
   }
 
-  deleteCapabilities (params: Object = {}): Promise<*> {
-    return super.deleteEdge(
-      '/capabilities',
-      params
-    );
-  }
-
-  createCapability (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
-    return this.createEdge(
-      '/capabilities',
-      fields,
-      params,
-      
-    );
-  }
-
-  getPrefills (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      CustomAudiencePrefillState,
-      fields,
-      params,
-      fetchFirstPage,
-      '/prefills'
-    );
-  }
-
   getSessions (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       CustomAudienceSession,
@@ -195,22 +172,6 @@ export default class CustomAudience extends AbstractCrudObject {
     );
   }
 
-  deleteUpload (params: Object = {}): Promise<*> {
-    return super.deleteEdge(
-      '/upload',
-      params
-    );
-  }
-
-  createUpload (fields: Array<string>, params: Object = {}): Promise<CustomAudience> {
-    return this.createEdge(
-      '/upload',
-      fields,
-      params,
-      CustomAudience
-    );
-  }
-
   deleteUsers (params: Object = {}): Promise<*> {
     return super.deleteEdge(
       '/users',
@@ -221,6 +182,15 @@ export default class CustomAudience extends AbstractCrudObject {
   createUser (fields: Array<string>, params: Object = {}): Promise<CustomAudience> {
     return this.createEdge(
       '/users',
+      fields,
+      params,
+      CustomAudience
+    );
+  }
+
+  createUsersReplace (fields: Array<string>, params: Object = {}): Promise<CustomAudience> {
+    return this.createEdge(
+      '/usersreplace',
       fields,
       params,
       CustomAudience

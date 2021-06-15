@@ -35,13 +35,13 @@ fields = [
 params = {
   'name' : 'My First Adset',
   'daily_budget' : '2000',
-  'start_time' : '2019-04-29T08:47:49-0700',
-  'end_time' : '2019-05-06T08:47:49-0700',
+  'start_time' : '2021-04-18T09:43:24-0700',
+  'end_time' : '2021-04-25T09:43:24-0700',
   'campaign_id' : '<adCampaignLinkClicksID>',
   'bid_amount' : '100',
   'billing_event' : 'LINK_CLICKS',
   'optimization_goal' : 'LINK_CLICKS',
-  'targeting' : {'geo_locations':{'countries':['US']}},
+  'targeting' : {'facebook_positions':['feed'],'geo_locations':{'countries':['US']}},
   'status' : 'PAUSED',
 };
 const adsets = (new AdAccount(id)).createAdSet(

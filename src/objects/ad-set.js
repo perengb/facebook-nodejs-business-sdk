@@ -15,6 +15,7 @@ import AdCreative from './ad-creative';
 import AdRule from './ad-rule';
 import Ad from './ad';
 import AdAsyncRequest from './ad-async-request';
+import ContentDeliveryReport from './content-delivery-report';
 import AdCampaignDeliveryEstimate from './ad-campaign-delivery-estimate';
 import AdsInsights from './ads-insights';
 import AdReportRun from './ad-report-run';
@@ -26,7 +27,7 @@ import TargetingSentenceLine from './targeting-sentence-line';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdSet extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       account_id: 'account_id',
       adlabels: 'adlabels',
@@ -57,10 +58,12 @@ export default class AdSet extends AbstractCrudObject {
       instagram_actor_id: 'instagram_actor_id',
       is_dynamic_creative: 'is_dynamic_creative',
       issues_info: 'issues_info',
+      learning_stage_info: 'learning_stage_info',
       lifetime_budget: 'lifetime_budget',
       lifetime_imps: 'lifetime_imps',
       lifetime_min_spend_target: 'lifetime_min_spend_target',
       lifetime_spend_cap: 'lifetime_spend_cap',
+      multi_optimization_goal_weight: 'multi_optimization_goal_weight',
       name: 'name',
       optimization_goal: 'optimization_goal',
       optimization_sub_event: 'optimization_sub_event',
@@ -84,9 +87,9 @@ export default class AdSet extends AbstractCrudObject {
 
   static get BidStrategy (): Object {
     return Object.freeze({
+      cost_cap: 'COST_CAP',
       lowest_cost_without_cap: 'LOWEST_COST_WITHOUT_CAP',
       lowest_cost_with_bid_cap: 'LOWEST_COST_WITH_BID_CAP',
-      target_cost: 'TARGET_COST',
     });
   }
   static get BillingEvent (): Object {
@@ -95,12 +98,13 @@ export default class AdSet extends AbstractCrudObject {
       clicks: 'CLICKS',
       impressions: 'IMPRESSIONS',
       link_clicks: 'LINK_CLICKS',
+      listing_interaction: 'LISTING_INTERACTION',
       none: 'NONE',
       offer_claims: 'OFFER_CLAIMS',
       page_likes: 'PAGE_LIKES',
       post_engagement: 'POST_ENGAGEMENT',
+      purchase: 'PURCHASE',
       thruplay: 'THRUPLAY',
-      video_views: 'VIDEO_VIEWS',
     });
   }
   static get ConfiguredStatus (): Object {
@@ -115,6 +119,7 @@ export default class AdSet extends AbstractCrudObject {
     return Object.freeze({
       active: 'ACTIVE',
       archived: 'ARCHIVED',
+      campaign_paused: 'CAMPAIGN_PAUSED',
       deleted: 'DELETED',
       in_process: 'IN_PROCESS',
       paused: 'PAUSED',
@@ -141,13 +146,15 @@ export default class AdSet extends AbstractCrudObject {
       page_engagement: 'PAGE_ENGAGEMENT',
       page_likes: 'PAGE_LIKES',
       post_engagement: 'POST_ENGAGEMENT',
+      quality_call: 'QUALITY_CALL',
+      quality_lead: 'QUALITY_LEAD',
       reach: 'REACH',
       replies: 'REPLIES',
       social_impressions: 'SOCIAL_IMPRESSIONS',
       thruplay: 'THRUPLAY',
       two_second_continuous_video_views: 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS',
       value: 'VALUE',
-      video_views: 'VIDEO_VIEWS',
+      visit_instagram_profile: 'VISIT_INSTAGRAM_PROFILE',
     });
   }
   static get Status (): Object {
@@ -156,6 +163,29 @@ export default class AdSet extends AbstractCrudObject {
       archived: 'ARCHIVED',
       deleted: 'DELETED',
       paused: 'PAUSED',
+    });
+  }
+  static get DatePreset (): Object {
+    return Object.freeze({
+      last_14d: 'last_14d',
+      last_28d: 'last_28d',
+      last_30d: 'last_30d',
+      last_3d: 'last_3d',
+      last_7d: 'last_7d',
+      last_90d: 'last_90d',
+      last_month: 'last_month',
+      last_quarter: 'last_quarter',
+      last_week_mon_sun: 'last_week_mon_sun',
+      last_week_sun_sat: 'last_week_sun_sat',
+      last_year: 'last_year',
+      maximum: 'maximum',
+      this_month: 'this_month',
+      this_quarter: 'this_quarter',
+      this_week_mon_today: 'this_week_mon_today',
+      this_week_sun_today: 'this_week_sun_today',
+      this_year: 'this_year',
+      today: 'today',
+      yesterday: 'yesterday',
     });
   }
   static get DestinationType (): Object {
@@ -181,6 +211,14 @@ export default class AdSet extends AbstractCrudObject {
       none_exploration: 'NONE_EXPLORATION',
     });
   }
+  static get MultiOptimizationGoalWeight (): Object {
+    return Object.freeze({
+      balanced: 'BALANCED',
+      prefer_event: 'PREFER_EVENT',
+      prefer_install: 'PREFER_INSTALL',
+      undefined: 'UNDEFINED',
+    });
+  }
   static get OptimizationSubEvent (): Object {
     return Object.freeze({
       none: 'NONE',
@@ -195,27 +233,13 @@ export default class AdSet extends AbstractCrudObject {
       video_sound_on: 'VIDEO_SOUND_ON',
     });
   }
-  static get DatePreset (): Object {
+  static get TuneForCategory (): Object {
     return Object.freeze({
-      last_14d: 'LAST_14D',
-      last_28d: 'LAST_28D',
-      last_30d: 'LAST_30D',
-      last_3d: 'LAST_3D',
-      last_7d: 'LAST_7D',
-      last_90d: 'LAST_90D',
-      last_month: 'LAST_MONTH',
-      last_quarter: 'LAST_QUARTER',
-      last_week_mon_sun: 'LAST_WEEK_MON_SUN',
-      last_week_sun_sat: 'LAST_WEEK_SUN_SAT',
-      last_year: 'LAST_YEAR',
-      lifetime: 'LIFETIME',
-      this_month: 'THIS_MONTH',
-      this_quarter: 'THIS_QUARTER',
-      this_week_mon_today: 'THIS_WEEK_MON_TODAY',
-      this_week_sun_today: 'THIS_WEEK_SUN_TODAY',
-      this_year: 'THIS_YEAR',
-      today: 'TODAY',
-      yesterday: 'YESTERDAY',
+      credit: 'CREDIT',
+      employment: 'EMPLOYMENT',
+      housing: 'HOUSING',
+      issues_elections_politics: 'ISSUES_ELECTIONS_POLITICS',
+      none: 'NONE',
     });
   }
   static get Operator (): Object {
@@ -262,6 +286,22 @@ export default class AdSet extends AbstractCrudObject {
     );
   }
 
+  deleteAdLabels (params: Object = {}): Promise<*> {
+    return super.deleteEdge(
+      '/adlabels',
+      params
+    );
+  }
+
+  createAdLabel (fields: Array<string>, params: Object = {}): Promise<AdSet> {
+    return this.createEdge(
+      '/adlabels',
+      fields,
+      params,
+      AdSet
+    );
+  }
+
   getAdRulesGoverned (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       AdRule,
@@ -289,6 +329,16 @@ export default class AdSet extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/asyncadrequests'
+    );
+  }
+
+  getContentDeliveryReport (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      ContentDeliveryReport,
+      fields,
+      params,
+      fetchFirstPage,
+      '/content_delivery_report'
     );
   }
 
@@ -337,22 +387,6 @@ export default class AdSet extends AbstractCrudObject {
       fields,
       params,
       AdReportRun
-    );
-  }
-
-  deleteLabels (params: Object = {}): Promise<*> {
-    return super.deleteEdge(
-      '/labels',
-      params
-    );
-  }
-
-  createLabel (fields: Array<string>, params: Object = {}): Promise<AdSet> {
-    return this.createEdge(
-      '/labels',
-      fields,
-      params,
-      AdSet
     );
   }
 

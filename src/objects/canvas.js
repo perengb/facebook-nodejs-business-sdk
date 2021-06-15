@@ -7,6 +7,7 @@
  * @flow
  */
 import {AbstractCrudObject} from './../abstract-crud-object';
+import AbstractObject from './../abstract-object';
 
 /**
  * Canvas
@@ -14,7 +15,7 @@ import {AbstractCrudObject} from './../abstract-crud-object';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Canvas extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       background_color: 'background_color',
       body_elements: 'body_elements',
@@ -23,12 +24,40 @@ export default class Canvas extends AbstractCrudObject {
       is_hidden: 'is_hidden',
       is_published: 'is_published',
       last_editor: 'last_editor',
+      linked_documents: 'linked_documents',
       name: 'name',
       owner: 'owner',
+      source_template: 'source_template',
       update_time: 'update_time',
     });
   }
 
+
+  createDuplicateCanva (fields: Array<string>, params: Object = {}): Promise<Canvas> {
+    return this.createEdge(
+      '/duplicate_canvas',
+      fields,
+      params,
+      Canvas
+    );
+  }
+
+  createPreviewNotification (fields: Array<string>, params: Object = {}): Promise<Canvas> {
+    return this.createEdge(
+      '/preview_notifications',
+      fields,
+      params,
+      Canvas
+    );
+  }
+
+  // $FlowFixMe : Support Generic Types
+  delete (fields: Array<string>, params: Object = {}): AbstractObject {
+    // $FlowFixMe : Support Generic Types
+    return super.delete(
+      params
+    );
+  }
 
   
   get (fields: Array<string>, params: Object = {}): Canvas {

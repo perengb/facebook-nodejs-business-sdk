@@ -14,7 +14,7 @@ import {AbstractCrudObject} from './../abstract-crud-object';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdAccountDeliveryEstimate extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       daily_outcomes_curve: 'daily_outcomes_curve',
       estimate_dau: 'estimate_dau',
@@ -43,13 +43,15 @@ export default class AdAccountDeliveryEstimate extends AbstractCrudObject {
       page_engagement: 'PAGE_ENGAGEMENT',
       page_likes: 'PAGE_LIKES',
       post_engagement: 'POST_ENGAGEMENT',
+      quality_call: 'QUALITY_CALL',
+      quality_lead: 'QUALITY_LEAD',
       reach: 'REACH',
       replies: 'REPLIES',
       social_impressions: 'SOCIAL_IMPRESSIONS',
       thruplay: 'THRUPLAY',
       two_second_continuous_video_views: 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS',
       value: 'VALUE',
-      video_views: 'VIDEO_VIEWS',
+      visit_instagram_profile: 'VISIT_INSTAGRAM_PROFILE',
     });
   }
 }

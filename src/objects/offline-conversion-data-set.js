@@ -20,7 +20,7 @@ import CustomConversion from './custom-conversion';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class OfflineConversionDataSet extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       business: 'business',
       config: 'config',
@@ -56,6 +56,7 @@ export default class OfflineConversionDataSet extends AbstractCrudObject {
     return Object.freeze({
       ad_manager: 'AD_MANAGER',
       agency: 'AGENCY',
+      aggregator: 'AGGREGATOR',
       audience_manager: 'AUDIENCE_MANAGER',
       other: 'OTHER',
     });
@@ -154,15 +155,6 @@ export default class OfflineConversionDataSet extends AbstractCrudObject {
       fields,
       params,
       
-    );
-  }
-
-  createUser (fields: Array<string>, params: Object = {}): Promise<OfflineConversionDataSet> {
-    return this.createEdge(
-      '/users',
-      fields,
-      params,
-      OfflineConversionDataSet
     );
   }
 

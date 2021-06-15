@@ -12,9 +12,7 @@ import Cursor from './../cursor';
 import Comment from './comment';
 import InsightsResult from './insights-result';
 import Profile from './profile';
-import Post from './post';
 import Page from './page';
-import TaggableSubject from './taggable-subject';
 
 /**
  * Photo
@@ -22,7 +20,7 @@ import TaggableSubject from './taggable-subject';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Photo extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       album: 'album',
       alt_text: 'alt_text',
@@ -70,6 +68,7 @@ export default class Photo extends AbstractCrudObject {
       draft: 'DRAFT',
       inline_created: 'INLINE_CREATED',
       published: 'PUBLISHED',
+      reviewable_branded_content: 'REVIEWABLE_BRANDED_CONTENT',
       scheduled: 'SCHEDULED',
       scheduled_recurring: 'SCHEDULED_RECURRING',
     });
@@ -130,26 +129,6 @@ export default class Photo extends AbstractCrudObject {
     );
   }
 
-  getReactions (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      Profile,
-      fields,
-      params,
-      fetchFirstPage,
-      '/reactions'
-    );
-  }
-
-  getSharedPosts (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      Post,
-      fields,
-      params,
-      fetchFirstPage,
-      '/sharedposts'
-    );
-  }
-
   getSponsorTags (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       Page,
@@ -157,16 +136,6 @@ export default class Photo extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/sponsor_tags'
-    );
-  }
-
-  getTags (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      TaggableSubject,
-      fields,
-      params,
-      fetchFirstPage,
-      '/tags'
     );
   }
 

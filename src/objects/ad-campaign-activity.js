@@ -14,7 +14,7 @@ import {AbstractCrudObject} from './../abstract-crud-object';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdCampaignActivity extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       auto_create_lookalike_new: 'auto_create_lookalike_new',
       auto_create_lookalike_old: 'auto_create_lookalike_old',
@@ -32,8 +32,6 @@ export default class AdCampaignActivity extends AbstractCrudObject {
       bid_type_old: 'bid_type_old',
       billing_event_new: 'billing_event_new',
       billing_event_old: 'billing_event_old',
-      brande_audience_id_new: 'brande_audience_id_new',
-      brande_audience_id_old: 'brande_audience_id_old',
       budget_limit_new: 'budget_limit_new',
       budget_limit_old: 'budget_limit_old',
       created_time: 'created_time',
@@ -58,6 +56,8 @@ export default class AdCampaignActivity extends AbstractCrudObject {
       optimization_goal_old: 'optimization_goal_old',
       pacing_type_new: 'pacing_type_new',
       pacing_type_old: 'pacing_type_old',
+      promoted_object_id_new: 'promoted_object_id_new',
+      promoted_object_id_old: 'promoted_object_id_old',
       run_status_new: 'run_status_new',
       run_status_old: 'run_status_old',
       schedule_new: 'schedule_new',
@@ -70,6 +70,8 @@ export default class AdCampaignActivity extends AbstractCrudObject {
       stop_time_old: 'stop_time_old',
       targeting_expansion_new: 'targeting_expansion_new',
       targeting_expansion_old: 'targeting_expansion_old',
+      targeting_new: 'targeting_new',
+      targeting_old: 'targeting_old',
       updated_time_new: 'updated_time_new',
       updated_time_old: 'updated_time_old',
     });
@@ -77,16 +79,16 @@ export default class AdCampaignActivity extends AbstractCrudObject {
 
   static get BidStrategyNew (): Object {
     return Object.freeze({
+      cost_cap: 'COST_CAP',
       lowest_cost_without_cap: 'LOWEST_COST_WITHOUT_CAP',
       lowest_cost_with_bid_cap: 'LOWEST_COST_WITH_BID_CAP',
-      target_cost: 'TARGET_COST',
     });
   }
   static get BidStrategyOld (): Object {
     return Object.freeze({
+      cost_cap: 'COST_CAP',
       lowest_cost_without_cap: 'LOWEST_COST_WITHOUT_CAP',
       lowest_cost_with_bid_cap: 'LOWEST_COST_WITH_BID_CAP',
-      target_cost: 'TARGET_COST',
     });
   }
   static get BillingEventNew (): Object {
@@ -95,12 +97,13 @@ export default class AdCampaignActivity extends AbstractCrudObject {
       clicks: 'CLICKS',
       impressions: 'IMPRESSIONS',
       link_clicks: 'LINK_CLICKS',
+      listing_interaction: 'LISTING_INTERACTION',
       none: 'NONE',
       offer_claims: 'OFFER_CLAIMS',
       page_likes: 'PAGE_LIKES',
       post_engagement: 'POST_ENGAGEMENT',
+      purchase: 'PURCHASE',
       thruplay: 'THRUPLAY',
-      video_views: 'VIDEO_VIEWS',
     });
   }
   static get BillingEventOld (): Object {
@@ -109,12 +112,13 @@ export default class AdCampaignActivity extends AbstractCrudObject {
       clicks: 'CLICKS',
       impressions: 'IMPRESSIONS',
       link_clicks: 'LINK_CLICKS',
+      listing_interaction: 'LISTING_INTERACTION',
       none: 'NONE',
       offer_claims: 'OFFER_CLAIMS',
       page_likes: 'PAGE_LIKES',
       post_engagement: 'POST_ENGAGEMENT',
+      purchase: 'PURCHASE',
       thruplay: 'THRUPLAY',
-      video_views: 'VIDEO_VIEWS',
     });
   }
   static get OptimizationGoalNew (): Object {
@@ -137,13 +141,15 @@ export default class AdCampaignActivity extends AbstractCrudObject {
       page_engagement: 'PAGE_ENGAGEMENT',
       page_likes: 'PAGE_LIKES',
       post_engagement: 'POST_ENGAGEMENT',
+      quality_call: 'QUALITY_CALL',
+      quality_lead: 'QUALITY_LEAD',
       reach: 'REACH',
       replies: 'REPLIES',
       social_impressions: 'SOCIAL_IMPRESSIONS',
       thruplay: 'THRUPLAY',
       two_second_continuous_video_views: 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS',
       value: 'VALUE',
-      video_views: 'VIDEO_VIEWS',
+      visit_instagram_profile: 'VISIT_INSTAGRAM_PROFILE',
     });
   }
   static get OptimizationGoalOld (): Object {
@@ -166,13 +172,15 @@ export default class AdCampaignActivity extends AbstractCrudObject {
       page_engagement: 'PAGE_ENGAGEMENT',
       page_likes: 'PAGE_LIKES',
       post_engagement: 'POST_ENGAGEMENT',
+      quality_call: 'QUALITY_CALL',
+      quality_lead: 'QUALITY_LEAD',
       reach: 'REACH',
       replies: 'REPLIES',
       social_impressions: 'SOCIAL_IMPRESSIONS',
       thruplay: 'THRUPLAY',
       two_second_continuous_video_views: 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS',
       value: 'VALUE',
-      video_views: 'VIDEO_VIEWS',
+      visit_instagram_profile: 'VISIT_INSTAGRAM_PROFILE',
     });
   }
 

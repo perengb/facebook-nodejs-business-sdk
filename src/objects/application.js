@@ -14,10 +14,8 @@ import AdNetworkAnalyticsAsyncQueryResult from './ad-network-analytics-async-que
 import Business from './business';
 import Group from './group';
 import AdAccount from './ad-account';
-import User from './user';
 import DACheck from './da-check';
 import Event from './event';
-import OpenGraphObject from './open-graph-object';
 
 /**
  * Application
@@ -25,13 +23,15 @@ import OpenGraphObject from './open-graph-object';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Application extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
+      aam_rules: 'aam_rules',
       an_ad_space_limit: 'an_ad_space_limit',
       an_platforms: 'an_platforms',
       android_key_hash: 'android_key_hash',
       android_sdk_error_categories: 'android_sdk_error_categories',
       app_domains: 'app_domains',
+      app_events_config: 'app_events_config',
       app_events_feature_bitmask: 'app_events_feature_bitmask',
       app_events_session_timeout: 'app_events_session_timeout',
       app_install_tracked: 'app_install_tracked',
@@ -114,6 +114,7 @@ export default class Application extends AbstractCrudObject {
       smart_login_menu_icon_url: 'smart_login_menu_icon_url',
       social_discovery: 'social_discovery',
       subcategory: 'subcategory',
+      suggested_events_setting: 'suggested_events_setting',
       supported_platforms: 'supported_platforms',
       supports_apprequests_fast_app_switch: 'supports_apprequests_fast_app_switch',
       supports_attribution: 'supports_attribution',
@@ -138,6 +139,8 @@ export default class Application extends AbstractCrudObject {
       ipad: 'IPAD',
       iphone: 'IPHONE',
       mobile_web: 'MOBILE_WEB',
+      oculus: 'OCULUS',
+      samsung: 'SAMSUNG',
       supplementary_images: 'SUPPLEMENTARY_IMAGES',
       web: 'WEB',
       windows: 'WINDOWS',
@@ -150,6 +153,7 @@ export default class Application extends AbstractCrudObject {
       instant_articles: 'INSTANT_ARTICLES',
       ios: 'IOS',
       mobile_web: 'MOBILE_WEB',
+      oculus: 'OCULUS',
       unknown: 'UNKNOWN',
     });
   }
@@ -269,6 +273,25 @@ export default class Application extends AbstractCrudObject {
     );
   }
 
+  getAemConversionConfigs (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      AbstractObject,
+      fields,
+      params,
+      fetchFirstPage,
+      '/aem_conversion_configs'
+    );
+  }
+
+  createAemConversion (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
+    return this.createEdge(
+      '/aem_conversions',
+      fields,
+      params,
+      
+    );
+  }
+
   getAgencies (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       Business,
@@ -279,13 +302,22 @@ export default class Application extends AbstractCrudObject {
     );
   }
 
-  getAppEventTypes (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+  createAggregateRevenue (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
+    return this.createEdge(
+      '/aggregate_revenue',
+      fields,
+      params,
+      
+    );
+  }
+
+  getAndroidDialogConfigs (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       AbstractObject,
       fields,
       params,
       fetchFirstPage,
-      '/app_event_types'
+      '/android_dialog_configs'
     );
   }
 
@@ -365,13 +397,10 @@ export default class Application extends AbstractCrudObject {
     );
   }
 
-  getBanned (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      User,
-      fields,
-      params,
-      fetchFirstPage,
-      '/banned'
+  deleteBanned (params: Object = {}): Promise<*> {
+    return super.deleteEdge(
+      '/banned',
+      params
     );
   }
 
@@ -394,31 +423,12 @@ export default class Application extends AbstractCrudObject {
     );
   }
 
-  createCodelessEventBinding (fields: Array<string>, params: Object = {}): Promise<Application> {
-    return this.createEdge(
-      '/codeless_event_bindings',
-      fields,
-      params,
-      Application
-    );
-  }
-
   createCodelessEventMapping (fields: Array<string>, params: Object = {}): Promise<Application> {
     return this.createEdge(
       '/codeless_event_mappings',
       fields,
       params,
       Application
-    );
-  }
-
-  getCustomAudienceThirdPartyId (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      AbstractObject,
-      fields,
-      params,
-      fetchFirstPage,
-      '/custom_audience_third_party_id'
     );
   }
 
@@ -442,19 +452,19 @@ export default class Application extends AbstractCrudObject {
     );
   }
 
-  getFullAppIndexingInfos (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+  getInsightsPushSchedule (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       AbstractObject,
       fields,
       params,
       fetchFirstPage,
-      '/full_app_indexing_infos'
+      '/insights_push_schedule'
     );
   }
 
-  createFullAppIndexingInfo (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
+  createInsightsPushSchedule (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
     return this.createEdge(
-      '/full_app_indexing_infos',
+      '/insights_push_schedule',
       fields,
       params,
       
@@ -526,47 +536,9 @@ export default class Application extends AbstractCrudObject {
     );
   }
 
-  getMoodsForApplication (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      AbstractObject,
-      fields,
-      params,
-      fetchFirstPage,
-      '/moods_for_application'
-    );
-  }
-
-  getObjects (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      OpenGraphObject,
-      fields,
-      params,
-      fetchFirstPage,
-      '/objects'
-    );
-  }
-
-  createObject (fields: Array<string>, params: Object = {}): Promise<OpenGraphObject> {
-    return this.createEdge(
-      '/objects',
-      fields,
-      params,
-      OpenGraphObject
-    );
-  }
-
   createOccludesPopup (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
     return this.createEdge(
       '/occludespopups',
-      fields,
-      params,
-      
-    );
-  }
-
-  createOzoneRelease (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
-    return this.createEdge(
-      '/ozone_release',
       fields,
       params,
       
@@ -628,6 +600,15 @@ export default class Application extends AbstractCrudObject {
     );
   }
 
+  createPushTokenRegister (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
+    return this.createEdge(
+      '/push_token_register',
+      fields,
+      params,
+      
+    );
+  }
+
   getRoles (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       AbstractObject,
@@ -638,12 +619,12 @@ export default class Application extends AbstractCrudObject {
     );
   }
 
-  createStagingResource (fields: Array<string>, params: Object = {}): Promise<Application> {
+  createSendNotification (fields: Array<string>, params: Object = {}): Promise<AbstractObject> {
     return this.createEdge(
-      '/staging_resources',
+      '/send_notification',
       fields,
       params,
-      Application
+      
     );
   }
 
@@ -698,15 +679,6 @@ export default class Application extends AbstractCrudObject {
       fields,
       params,
       
-    );
-  }
-
-  createSubscriptionsSample (fields: Array<string>, params: Object = {}): Promise<Application> {
-    return this.createEdge(
-      '/subscriptions_sample',
-      fields,
-      params,
-      Application
     );
   }
 

@@ -7,8 +7,6 @@
  * @flow
  */
 import {AbstractCrudObject} from './../abstract-crud-object';
-import Cursor from './../cursor';
-import User from './user';
 
 /**
  * PartnerStudy
@@ -16,7 +14,7 @@ import User from './user';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class PartnerStudy extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       additional_info: 'additional_info',
       brand: 'brand',
@@ -39,16 +37,6 @@ export default class PartnerStudy extends AbstractCrudObject {
     });
   }
 
-
-  getSubmitters (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
-    return this.getEdge(
-      User,
-      fields,
-      params,
-      fetchFirstPage,
-      '/submitters'
-    );
-  }
 
   
   get (fields: Array<string>, params: Object = {}): PartnerStudy {

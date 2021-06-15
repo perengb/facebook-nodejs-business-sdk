@@ -12,12 +12,11 @@ import Cursor from './../cursor';
 import Business from './business';
 import AssignedUser from './assigned-user';
 import AutomotiveModel from './automotive-model';
-import DynamicItemDisplayBundleFolder from './dynamic-item-display-bundle-folder';
-import DynamicItemDisplayBundle from './dynamic-item-display-bundle';
 import ProductCatalogCategory from './product-catalog-category';
 import CheckBatchRequestStatus from './check-batch-request-status';
 import CollaborativeAdsShareSettings from './collaborative-ads-share-settings';
 import Destination from './destination';
+import ProductCatalogDiagnosticGroup from './product-catalog-diagnostic-group';
 import ProductEventStat from './product-event-stat';
 import ExternalEventSource from './external-event-source';
 import Flight from './flight';
@@ -30,6 +29,7 @@ import ProductGroup from './product-group';
 import ProductSet from './product-set';
 import ProductCatalogProductSetsBatch from './product-catalog-product-sets-batch';
 import ProductItem from './product-item';
+import VehicleOffer from './vehicle-offer';
 import Vehicle from './vehicle';
 
 /**
@@ -38,29 +38,37 @@ import Vehicle from './vehicle';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class ProductCatalog extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       business: 'business',
-      cpas_parent_catalog_settings: 'cpas_parent_catalog_settings',
+      commerce_merchant_settings: 'commerce_merchant_settings',
       da_display_settings: 'da_display_settings',
       default_image_url: 'default_image_url',
       fallback_image_url: 'fallback_image_url',
       feed_count: 'feed_count',
       id: 'id',
+      is_catalog_segment: 'is_catalog_segment',
       name: 'name',
       product_count: 'product_count',
+      store_catalog_settings: 'store_catalog_settings',
       vertical: 'vertical',
     });
   }
 
   static get Vertical (): Object {
     return Object.freeze({
+      adoptable_pets: 'adoptable_pets',
       bookable: 'bookable',
       commerce: 'commerce',
       destinations: 'destinations',
       flights: 'flights',
       home_listings: 'home_listings',
       hotels: 'hotels',
+      jobs: 'jobs',
+      local_delivery_shipping_profiles: 'local_delivery_shipping_profiles',
+      local_service_businesses: 'local_service_businesses',
+      offer_items: 'offer_items',
+      offline_commerce: 'offline_commerce',
       ticketed_experiences: 'ticketed_experiences',
       transactable_items: 'transactable_items',
       vehicles: 'vehicles',
@@ -76,17 +84,49 @@ export default class ProductCatalog extends AbstractCrudObject {
     return Object.freeze({
       advertise: 'ADVERTISE',
       manage: 'MANAGE',
+      manage_ar: 'MANAGE_AR',
     });
   }
   static get Tasks (): Object {
     return Object.freeze({
       advertise: 'ADVERTISE',
       manage: 'MANAGE',
+      manage_ar: 'MANAGE_AR',
     });
   }
   static get Standard (): Object {
     return Object.freeze({
       google: 'google',
+    });
+  }
+  static get ItemSubType (): Object {
+    return Object.freeze({
+      appliances: 'APPLIANCES',
+      baby_feeding: 'BABY_FEEDING',
+      baby_transport: 'BABY_TRANSPORT',
+      beauty: 'BEAUTY',
+      bedding: 'BEDDING',
+      cameras: 'CAMERAS',
+      cell_phones_and_smart_watches: 'CELL_PHONES_AND_SMART_WATCHES',
+      cleaning_supplies: 'CLEANING_SUPPLIES',
+      clothing: 'CLOTHING',
+      clothing_accessories: 'CLOTHING_ACCESSORIES',
+      computers_and_tablets: 'COMPUTERS_AND_TABLETS',
+      diapering_and_potty_training: 'DIAPERING_AND_POTTY_TRAINING',
+      electronics_accessories: 'ELECTRONICS_ACCESSORIES',
+      furniture: 'FURNITURE',
+      health: 'HEALTH',
+      home_goods: 'HOME_GOODS',
+      jewelry: 'JEWELRY',
+      nursery: 'NURSERY',
+      printers_and_scanners: 'PRINTERS_AND_SCANNERS',
+      projectors: 'PROJECTORS',
+      shoes_and_footwear: 'SHOES_AND_FOOTWEAR',
+      software: 'SOFTWARE',
+      toys: 'TOYS',
+      tvs_and_monitors: 'TVS_AND_MONITORS',
+      video_game_consoles_and_video_games: 'VIDEO_GAME_CONSOLES_AND_VIDEO_GAMES',
+      watches: 'WATCHES',
     });
   }
 
@@ -142,6 +182,16 @@ export default class ProductCatalog extends AbstractCrudObject {
     );
   }
 
+  getAutoMarkets (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      AbstractObject,
+      fields,
+      params,
+      fetchFirstPage,
+      '/auto_markets'
+    );
+  }
+
   getAutomotiveModels (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       AutomotiveModel,
@@ -152,30 +202,31 @@ export default class ProductCatalog extends AbstractCrudObject {
     );
   }
 
+  createAutomotiveModel (fields: Array<string>, params: Object = {}): Promise<AutomotiveModel> {
+    return this.createEdge(
+      '/automotive_models',
+      fields,
+      params,
+      AutomotiveModel
+    );
+  }
+
+  getAutos (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      AbstractObject,
+      fields,
+      params,
+      fetchFirstPage,
+      '/autos'
+    );
+  }
+
   createBatch (fields: Array<string>, params: Object = {}): Promise<ProductCatalog> {
     return this.createEdge(
       '/batch',
       fields,
       params,
       ProductCatalog
-    );
-  }
-
-  createBundleFolder (fields: Array<string>, params: Object = {}): Promise<DynamicItemDisplayBundleFolder> {
-    return this.createEdge(
-      '/bundle_folders',
-      fields,
-      params,
-      DynamicItemDisplayBundleFolder
-    );
-  }
-
-  createBundle (fields: Array<string>, params: Object = {}): Promise<DynamicItemDisplayBundle> {
-    return this.createEdge(
-      '/bundles',
-      fields,
-      params,
-      DynamicItemDisplayBundle
     );
   }
 
@@ -225,6 +276,16 @@ export default class ProductCatalog extends AbstractCrudObject {
       params,
       fetchFirstPage,
       '/destinations'
+    );
+  }
+
+  getDiagnostics (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      ProductCatalogDiagnosticGroup,
+      fields,
+      params,
+      fetchFirstPage,
+      '/diagnostics'
     );
   }
 
@@ -340,6 +401,25 @@ export default class ProductCatalog extends AbstractCrudObject {
     );
   }
 
+  createLocalizedItemsBatch (fields: Array<string>, params: Object = {}): Promise<ProductCatalog> {
+    return this.createEdge(
+      '/localized_items_batch',
+      fields,
+      params,
+      ProductCatalog
+    );
+  }
+
+  getMediaTitles (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      AbstractObject,
+      fields,
+      params,
+      fetchFirstPage,
+      '/media_titles'
+    );
+  }
+
   getPricingVariablesBatch (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       ProductCatalogPricingVariablesBatch,
@@ -426,15 +506,6 @@ export default class ProductCatalog extends AbstractCrudObject {
     );
   }
 
-  createProductSetsBatch (fields: Array<string>, params: Object = {}): Promise<ProductCatalog> {
-    return this.createEdge(
-      '/product_sets_batch',
-      fields,
-      params,
-      ProductCatalog
-    );
-  }
-
   getProducts (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
     return this.getEdge(
       ProductItem,
@@ -451,6 +522,16 @@ export default class ProductCatalog extends AbstractCrudObject {
       fields,
       params,
       ProductItem
+    );
+  }
+
+  getVehicleOffers (fields: Array<string>, params: Object = {}, fetchFirstPage: boolean = true): Cursor | Promise<*> {
+    return this.getEdge(
+      VehicleOffer,
+      fields,
+      params,
+      fetchFirstPage,
+      '/vehicle_offers'
     );
   }
 

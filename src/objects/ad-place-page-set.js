@@ -14,7 +14,7 @@ import {AbstractCrudObject} from './../abstract-crud-object';
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdPlacePageSet extends AbstractCrudObject {
-  static get Fields () {
+  static get Fields (): Object {
     return Object.freeze({
       account_id: 'account_id',
       id: 'id',
@@ -25,6 +25,12 @@ export default class AdPlacePageSet extends AbstractCrudObject {
     });
   }
 
+  static get Category (): Object {
+    return Object.freeze({
+      bopus: 'BOPUS',
+      general: 'GENERAL',
+    });
+  }
   static get LocationTypes (): Object {
     return Object.freeze({
       home: 'home',
@@ -44,14 +50,6 @@ export default class AdPlacePageSet extends AbstractCrudObject {
     // $FlowFixMe : Support Generic Types
     return this.read(
       fields,
-      params
-    );
-  }
-
-  // $FlowFixMe : Support Generic Types
-  update (fields: Array<string>, params: Object = {}): AdPlacePageSet {
-    // $FlowFixMe : Support Generic Types
-    return super.update(
       params
     );
   }
