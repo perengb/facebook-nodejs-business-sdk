@@ -547,7 +547,7 @@ var FacebookAdsApi = function () {
   createClass(FacebookAdsApi, null, [{
     key: 'VERSION',
     get: function get() {
-      return 'v19.0';
+      return process.env.GRAPH_API_VERSION || 'v20.0';
     }
   }, {
     key: 'SDK_VERSION',

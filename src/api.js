@@ -21,7 +21,7 @@ export default class FacebookAdsApi {
   locale: string;
   static _defaultApi: FacebookAdsApi;
   static get VERSION(): string {
-    return 'v19.0';
+    return process.env.GRAPH_API_VERSION || 'v20.0';
   }
   static get SDK_VERSION(): string {
     return '19.0.0';
